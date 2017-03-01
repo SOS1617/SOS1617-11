@@ -4,13 +4,12 @@ var date = require("fecha");
 var port = (process.env.PORT || 16778); /*Si esta definida port se coge port, sino el puerto que queramos*/
 
 var app = express();
-var dateNow = new Date(Date.now())
-dateNow.setHours(dateNow.getHours()+1);
+
 
 
 
 app.get("/time",(req,res) =>{
-    res.send("<html><body><h1>" + date.format(dateNow,'Do MMMM [of] YYYY [,] HH:mm:ss') + "</h1></body></html>");
+    res.send("<html><body><h1>" + date.format(new Date(Date.now()),'Do MMMM [of] YYYY [,] HH:mm:ss') + "</h1></body></html>");
 });
 
 

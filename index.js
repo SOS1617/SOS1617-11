@@ -13,6 +13,11 @@ app.get("/time",(req,res) =>{
     res.send("<html><body><h1>" + date.format(dateNow,'Do MMMM [of] YYYY [,] HH:mm:ss') + "</h1></body></html>");
 });
 
+
+app.get("/", (req, res) => {
+    res.send("<html><body><h1><a href=/time>/time</a></h1></body><html>");
+});
+
 app.listen(port,(err) => {
     if(!err)
         console.log("Server inicialized on port: "+port);

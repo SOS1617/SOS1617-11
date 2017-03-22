@@ -60,7 +60,7 @@ app.get(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New GET request to /uclchampions/" + year);
-        db.find({"year" :year}, function (err, filteredUclchampions) {
+        db.find({"year" :year}).toArray(function (err, filteredUclchampions) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); // internal server error
@@ -193,7 +193,7 @@ app.delete(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New DELETE request to /uclchampions/" + year);
-        db.remove({year:year}, {}, function (err, numRemoved) {
+        db.remove({year:year}, {}).toArray(function (err, numRemoved) {
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error

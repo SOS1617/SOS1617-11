@@ -1,0 +1,23 @@
+//============================ UCL CHAMPIONS STATS =======================================
+
+GET a la ruta base (p.e. “/towns”) devuelve una lista con todos los recursos
+curl -v -XGET -H 'Content-type: application/json'  'https://sos1617-11.herokuapp.com/api/v1//uclchampions'
+
+POST a la ruta base (p.e. “/towns”) crea un nuevo recurso
+curl -v -XPOST -H 'Content-type: application/json' -d '{ "year": "2013", "champion": "Bayern", "runnerup": "Borussia","stadium": "Estadio de Wembley" ,"city": "Londres"  }' 'https://sos1617-11.herokuapp.com/api/v1/uclchampions'
+
+GET a un recurso (p.e. “/towns/seville”) devuelve ese recurso 
+curl -v -XGET -H 'Content-type: application/json'  'https://sos1617-11.herokuapp.com/api/v1/uclchampions/2016'
+
+DELETE a un recurso (p.e. “/towns/seville”) borra ese recurso
+curl -v -XDELETE -H 'Content-type: application/json'  'https://sos1617-11.herokuapp.com/api/v1/uclchampions/2016'
+
+PUT a un recurso (p.e. “/towns/seville”) actualiza ese recurso 
+curl -v -XPUT -H 'Content-type: application/json' -d '{ "year": "2001", "champion": "Real Madrid", "runnerup": "Atletico de Madrid", "stadium": "Estadio da Luz", "city": "Lisboa }' 'https://sos1617-11.herokuapp.com/api/v1/uclchampions/2014'
+
+POST a un recurso (p.e. “/towns/seville”) debe dar un error de método no permitido.
+curl -v -XPOST -H 'Content-type: application/json' -d '{ "year": "2002", "champion": "Oporto", "runnerup": "Chelsea","stadium": "Bernabeu" ,"city": "Madrid"}' 'https://sos1617-11.herokuapp.com/api/v1/uclchampions/2014'
+
+
+PUT a la ruta base (p.e. “/towns”) debe dar un error de método no permitido.
+curl -v -XPUT -H 'Content-type: application/json' -d '{ "year": "2012", "champion": "Barcelona", "runnerup": "Juventus", "stadium": "Olympiastadion", "city": "Berlin" }' 'https://sos1617-11.herokuapp.com/api/v1/uclchampions'

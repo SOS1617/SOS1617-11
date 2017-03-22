@@ -1,6 +1,6 @@
 //================================================UCLCHAMPIONS-STATS==============================================================
 "use strict";
-/* global __dirname */
+/* global __dirplayer */
 
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -15,8 +15,10 @@ var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
 
 var db;
+var dbd;
+ 
 
-//app.use("/",express.static(path.join(__dirname,"public")));
+//app.use("/",express.static(path.join(__dirplayer,"public")));
 
 MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
     if(err){
@@ -24,6 +26,7 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
         process.exit(1);
     }
     db = database.collection("uclchampions");
+    dbd = database.collection("lfppichichitrophy");
     
     app.listen(port, ()=>{
         console.log("Magic is happening on port " + port);
@@ -31,17 +34,17 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
 
     
 });
-
+var app = express();
 app.get(BASE_API_PATH + "/uclchampions/loadInitialData",function(request, response) {
     
-    db.find({}).toArray(function(err,results){
+    db.find({}).toArray(function(err,uclchampions){
         
          if (err) {
         console.error('WARNING: Error while getting initial data from DB');
         return 0;
     }
     
-      if (results.length === 0) {
+      if (uclchampions.length === 0) {
         console.log('INFO: Empty DB, loading initial data');
 
               var uclchampions = [{
@@ -65,7 +68,7 @@ app.get(BASE_API_PATH + "/uclchampions/loadInitialData",function(request, respon
                 "stadium": "Estádio da Luz",
                 "city": "Lisboa"
             }];
-            db.insert(results);
+            db.insert(uclchampions);
       } else {
         console.log('INFO: DB has ' + uclchampions.length + ' results ');
     }
@@ -73,7 +76,7 @@ app.get(BASE_API_PATH + "/uclchampions/loadInitialData",function(request, respon
 });
 
 
-var app = express();
+
 
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
@@ -112,7 +115,7 @@ app.get(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
                     console.log("INFO: Sending uclchampion: " + JSON.stringify(uclchampion, 2, null));
                     response.send(uclchampion);
                 } else {
-                    console.log("WARNING: There are not any contact with name " + year);
+                    console.log("WARNING: There are not any contact with player " + year);
                     response.sendStatus(404); // not found
                 }
             }
@@ -139,7 +142,7 @@ app.post(BASE_API_PATH + "/uclchampions", function (request, response) {
                     response.sendStatus(500); // internal server error
                 } else {
                     var uclchampionsBeforeInsertion = uclchampions.filter((uclchampion) => {
-                        return (uclchampion.name.localeCompare(newUclchampion.year, "en", {'sensitivity': 'base'}) === 0);
+                        return (uclchampion.player.localeCompare(newUclchampion.year, "en", {'sensitivity': 'base'}) === 0);
                     });
                     if (uclchampionsBeforeInsertion.length > 0) {
                         console.log("WARNING: The uclchampion " + JSON.stringify(newUclchampion, 2, null) + " already extis, sending 409...");
@@ -252,5 +255,189 @@ app.delete(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
         });
     }
 });
+
+
+"use strict";
+/* global __dirplayer */
+
+
+
+//**********************************************************lfppichichitrophy*********************************
+// GET a collection
+app.get(BASE_API_PATH + "lfppichichitrophy", function (request, response) {
+    console.log("INFO: New GET request to lfppichichitrophy");
+    dbd.find({}).toArray(function (err, lfppichichitrophy) {
+        if (err) {
+            console.error('WARNING: Error getting data from DB');
+            response.sendStatus(500); // internal server error
+        } else {
+            console.log("INFO: Sending lfppichichitrophy: " + JSON.stringify(lfppichichitrophy, 2, null));
+            response.send(lfppichichitrophy);
+        }
+    });
+});
+
+
+// GET a single resource
+app.get(BASE_API_PATH + "lfppichichitrophy/:player", function (request, response) {
+    var player = request.params.player;
+    if (!player) {
+        console.log("WARNING: New GET request to lfppichichitrophy/:player without player, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New GET request to lfppichichitrophy/" + player);
+        dbd.find({"player" :player}).toArray(function (err, filteredlfppichichitrophy) {
+            if (err) {
+                console.error('WARNING: Error getting data from DB');
+                response.sendStatus(500); // internal server error
+            } else {
+                if (filteredlfppichichitrophy.length > 0) {
+                    var uclchampion = filteredlfppichichitrophy[0];
+                    console.log("INFO: Sending uclchampion: " + JSON.stringify(uclchampion, 2, null));
+                    response.send(uclchampion);
+                } else {
+                    console.log("WARNING: There are not any contact with player " + player);
+                    response.sendStatus(404); // not found
+                }
+            }
+        });
+    }
+});
+
+
+//POST over a collection
+app.post(BASE_API_PATH + "lfppichichitrophy", function (request, response) {
+    var newUclchampion = request.body;
+    if (!newUclchampion) {
+        console.log("WARNING: New POST request to lfppichichitrophy/ without uclchampion, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New POST request to lfppichichitrophy with body: " + JSON.stringify(newUclchampion, 2, null));
+        if (!newUclchampion.player || !newUclchampion.champion || !newUclchampion.runnerup || !newUclchampion.stadium || !newUclchampion.city) {
+            console.log("WARNING: The uclchampion " + JSON.stringify(newUclchampion, 2, null) + " is not well-formed, sending 422...");
+            response.sendStatus(422); // unprocessable entity
+        } else {
+            dbd.find({}, function (err, lfppichichitrophy) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500); // internal server error
+                } else {
+                    var lfppichichitrophyBeforeInsertion = lfppichichitrophy.filter((uclchampion) => {
+                        return (uclchampion.player.localeCompare(newUclchampion.player, "en", {'sensitivity': 'base'}) === 0);
+                    });
+                    if (lfppichichitrophyBeforeInsertion.length > 0) {
+                        console.log("WARNING: The uclchampion " + JSON.stringify(newUclchampion, 2, null) + " already extis, sending 409...");
+                        response.sendStatus(409); // conflict
+                    } else {
+                        console.log("INFO: Adding uclchampion " + JSON.stringify(newUclchampion, 2, null));
+                        dbd.insert(newUclchampion);
+                        response.sendStatus(201); // created
+                    }
+                }
+            });
+        }
+    }
+});
+
+
+//POST over a single resource
+app.post(BASE_API_PATH + "lfppichichitrophy/:player", function (request, response) {
+    var player = request.params.player;
+    console.log("WARNING: New POST request to lfppichichitrophy/" + player + ", sending 405...");
+    response.sendStatus(405); // method not allowed
+});
+
+
+//PUT over a collection
+app.put(BASE_API_PATH + "/contacts", function (request, response) {
+    console.log("WARNING: New PUT request to lfppichichitrophy, sending 405...");
+    response.sendStatus(405); // method not allowed
+});
+
+
+//PUT over a single resource
+app.put(BASE_API_PATH + "lfppichichitrophy/:player", function (request, response) {
+    var updatedUclchampion = request.body;
+    var player = request.params.player;
+    if (!updatedUclchampion) {
+        console.log("WARNING: New PUT request to lfppichichitrophy/ without uclchampion, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New PUT request to lfppichichitrophy/" + player + " with data " + JSON.stringify(updatedUclchampion, 2, null));
+        if (!updatedUclchampion.player || !updatedUclchampion.champion || !updatedUclchampion.runnerup || !updatedUclchampion.stadium || !updatedUclchampion.city) {
+            console.log("WARNING: The uclchampion " + JSON.stringify(updatedUclchampion, 2, null) + " is not well-formed, sending 422...");
+            response.sendStatus(422); // unprocessable entity
+        } else {
+            dbd.find({}, function (err, lfppichichitrophy) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500); // internal server error
+                } else {
+                    var lfppichichitrophyBeforeInsertion = lfppichichitrophy.filter((uclchampion) => {
+                        return (uclchampion.player.localeCompare(player, "en", {'sensitivity': 'base'}) === 0);
+                    });
+                    if (lfppichichitrophyBeforeInsertion.length > 0) {
+                        dbd.update({player: player}, updatedUclchampion);
+                        console.log("INFO: Modifying uclchampion with player " + player + " with data " + JSON.stringify(updatedUclchampion, 2, null));
+                        response.send(updatedUclchampion); // return the updated uclchampion
+                    } else {
+                        console.log("WARNING: There are not any uclchampion with player " + player);
+                        response.sendStatus(404); // not found
+                    }
+                }
+            });
+        }
+    }
+});
+
+
+//DELETE over a collection
+app.delete(BASE_API_PATH + "lfppichichitrophy", function (request, response) {
+    console.log("INFO: New DELETE request to lfppichichitrophy");
+    dbd.remove({}, {multi: true}, function (err, numRemoved) {
+        if (err) {
+            console.error('WARNING: Error removing data from DB');
+            response.sendStatus(500); // internal server error
+        } else {
+            if (numRemoved > 0) {
+                console.log("INFO: All the lfppichichitrophy (" + numRemoved + ") have been succesfully deleted, sending 204...");
+                response.sendStatus(204); // no content
+            } else {
+                console.log("WARNING: There are no contacts to delete");
+                response.sendStatus(404); // not found
+            }
+        }
+    });
+});
+
+
+//DELETE over a single resource
+app.delete(BASE_API_PATH + "lfppichichitrophy/:player", function (request, response) {
+    var player = request.params.player;
+    if (!player) {
+        console.log("WARNING: New DELETE request to lfppichichitrophy/:player without player, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New DELETE request to lfppichichitrophy/" + player);
+        dbd.remove({player:player}, {}).toArray(function (err, numRemoved) {
+            if (err) {
+                console.error('WARNING: Error removing data from DB');
+                response.sendStatus(500); // internal server error
+            } else {
+                console.log("INFO: lfppichichitrophy removed: " + numRemoved);
+                if (numRemoved === 1) {
+                    console.log("INFO: The uclchampion with player " + player + " has been succesfully deleted, sending 204...");
+                    response.sendStatus(204); // no content
+                } else {
+                    console.log("WARNING: There are no contacts to delete");
+                    response.sendStatus(404); // not found
+                }
+            }
+        });
+    }
+});
+
+
+
 
 

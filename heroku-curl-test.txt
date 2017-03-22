@@ -1,7 +1,7 @@
 //============================ UCL CHAMPIONS STATS =======================================
 
 GET a la ruta base (p.e. “/towns”) devuelve una lista con todos los recursos
-curl -v -XGET -H 'Content-type: application/json'  'https://sos1617-11.herokuapp.com/api/v1//uclchampions'
+curl -v -XGET -H 'Content-type: application/json'  'https://sos1617-11.herokuapp.com/api/v1/uclchampions'
 
 POST a la ruta base (p.e. “/towns”) crea un nuevo recurso
 curl -v -XPOST -H 'Content-type: application/json' -d '{ "year": "2013", "champion": "Bayern", "runnerup": "Borussia","stadium": "Estadio de Wembley" ,"city": "Londres"  }' 'https://sos1617-11.herokuapp.com/api/v1/uclchampions'

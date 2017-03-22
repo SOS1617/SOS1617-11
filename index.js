@@ -16,6 +16,8 @@ var BASE_API_PATH = "/api/v1";
 
 var db;
 
+//app.use("/",express.static(path.join(__dirname,"public")));
+
 MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
     if(err){
         console.log("CANNOT CONNECT TO BD: " + err);
@@ -28,6 +30,46 @@ MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
     });
 
     
+});
+
+app.get(BASE_API_PATH + "/uclchampions/loadInitialData",function(request, response) {
+    
+    db.find({}).toArray(function(err,results){
+        
+         if (err) {
+        console.error('WARNING: Error while getting initial data from DB');
+        return 0;
+    }
+    
+      if (results.length === 0) {
+        console.log('INFO: Empty DB, loading initial data');
+
+              var uclchampions = [{
+                "year": "2016",
+                "champion": "Real Madrid",
+                "runnerup": "Atletico de Madrid",
+                "stadium": "Estadio Giuseppe Meazza",
+                "city": "Milan"
+            },
+            {
+                "year": "2015",
+                "champion": "Barcelona",
+                "runnerup": "Juventus",
+                "stadium": "Estadio Olímpico",
+                "city": "Berlin"
+            },
+            {
+                "year": "2014",
+                "champion": "Real Madrid",
+                "runnerup": "Atletico de Madrid",
+                "stadium": "Estádio da Luz",
+                "city": "Lisboa"
+            }];
+            db.insert(results);
+      } else {
+        console.log('INFO: DB has ' + uclchampions.length + ' results ');
+    }
+});
 });
 
 
@@ -60,7 +102,7 @@ app.get(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New GET request to /uclchampions/" + year);
-        db.find({"year" :year}).toArray(function (err, filteredUclchampions) {
+        db.find({year :year}).toArray(function (err, filteredUclchampions) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); // internal server error
@@ -142,7 +184,7 @@ app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
             console.log("WARNING: The uclchampion " + JSON.stringify(updatedUclchampion, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            db.find({}, function (err, uclchampions) {
+            db.find({}).toArray(function (err, uclchampions) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
@@ -168,7 +210,7 @@ app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/uclchampions", function (request, response) {
     console.log("INFO: New DELETE request to /uclchampions");
-    db.remove({}, {multi: true}, function (err, numRemoved) {
+    db.remove({}).toArray({multi: true}, function (err, numRemoved) {
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
@@ -187,20 +229,20 @@ app.delete(BASE_API_PATH + "/uclchampions", function (request, response) {
 
 //DELETE over a single resource
 app.delete(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
-    var year = request.params.year;
-    if (!year) {
+    var yearParam = request.params.year;
+    if (!yearParam) {
         console.log("WARNING: New DELETE request to /uclchampions/:year without year, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New DELETE request to /uclchampions/" + year);
-        db.remove({year:year}, {}).toArray(function (err, numRemoved) {
+        console.log("INFO: New DELETE request to /uclchampions/" + yearParam);
+        db.remove({year:yearParam},{},function (err, numRemoved) {
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
                 console.log("INFO: uclchampions removed: " + numRemoved);
                 if (numRemoved === 1) {
-                    console.log("INFO: The uclchampion with year " + year + " has been succesfully deleted, sending 204...");
+                    console.log("INFO: The uclchampion with year " + yearParam + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
                     console.log("WARNING: There are no contacts to delete");

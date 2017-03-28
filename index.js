@@ -1,39 +1,40 @@
 //================================================UCLCHAMPIONS-STATS==============================================================
 "use strict";
-/* global __dirplayer */
+/* global __dirname */
 
 var express = require("express");
 var bodyParser = require("body-parser");
 var helmet = require("helmet");
 var path = require('path');
 
-var MongoClient = require('mongodb').MongoClient;
+var MongoClient = require("mongodb").MongoClient;
 
-var mdbURL = "mongodb://test:test@ds139360.mlab.com:39360/sandboxadri";
+var mdbURL = "mongodb://test:test@ds139480.mlab.com:39480/sandboxdbd";
+
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
 
+
 var db;
 var dbd;
- 
 
-//app.use("/",express.static(path.join(__dirplayer,"public")));
-
-MongoClient.connect(mdbURL,{native_parser:true},function(err,database){
+MongoClient.connect(mdbURL, {native_parser:true}, function (err,database){
+    
     if(err){
-        console.log("CANNOT CONNECT TO BD: " + err);
-        process.exit(1);
+        console.log(err);
+        process.exit(1);"apaga el servidor"
     }
     db = database.collection("uclchampions");
-    dbd = database.collection("lfppichichitrophy");
+    dbd = database.collection("players");
     
     app.listen(port, ()=>{
         console.log("Magic is happening on port " + port);
-    });
-
-    
 });
+
+
+});
+
 var app = express();
 app.get(BASE_API_PATH + "/uclchampions/loadInitialData",function(request, response) {
     
@@ -76,10 +77,9 @@ app.get(BASE_API_PATH + "/uclchampions/loadInitialData",function(request, respon
 });
 
 
-
-
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
+
 
 
 // GET a collection
@@ -263,40 +263,71 @@ app.delete(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
 
 
 //**********************************************************lfppichichitrophy*********************************
-// GET a collection
-app.get(BASE_API_PATH + "lfppichichitrophy", function (request, response) {
-    console.log("INFO: New GET request to lfppichichitrophy");
-    dbd.find({}).toArray(function (err, lfppichichitrophy) {
+
+
+
+
+app.get(BASE_API_PATH + "/players/loadInitialData",function(request, response) {
+    
+    dbd.find({}).toArray(function(err,players){
+            
+        if (err) {
+        console.error('WARNING: Error while getting initial data from DBD');
+        return 0;
+    }
+    
+    if (players.length === 0) {
+        console.log('INFO: Empty DBD, loading initial data');
+
+              var players = [
+                {"nationality":"argentina","season":"2011-12","name":"messi","team":"fcb barcelona","goal":"50"},
+                {"nationality": "portuguese", "season": "2013-14", "player":"cristiano ronaldo", "team": "real madrid", "goal": "31"},
+                { "nationality": "brazilian", "season": "2003-04", "player":"ronaldo", "team": "real madrid", "goal": "24"}];
+            dbd.insert(players);
+      } else {
+        console.log('INFO: DBD has ' + players.length + ' results ');
+    }
+});
+});
+
+// GET a collection -> va flama 
+app.get(BASE_API_PATH + "/players", function (request, response) {
+    console.log("INFO: New GET request to /players");
+    dbd.find({}).toArray(function (err, players) {
         if (err) {
             console.error('WARNING: Error getting data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            console.log("INFO: Sending lfppichichitrophy: " + JSON.stringify(lfppichichitrophy, 2, null));
-            response.send(lfppichichitrophy);
+            console.log("INFO: Sending players: " + JSON.stringify(players, 2, null));
+            response.send(players);
         }
     });
 });
 
 
-// GET a single resource
-app.get(BASE_API_PATH + "lfppichichitrophy/:player", function (request, response) {
-    var player = request.params.player;
-    if (!player) {
-        console.log("WARNING: New GET request to lfppichichitrophy/:player without player, sending 400...");
+// GET a single resource -> va ya flama también
+app.get(BASE_API_PATH + "/players/:name", function (request, response) {
+    var name = request.params.name;
+    if (!name) {
+        console.log("WARNING: New GET request to /players/:name without name, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New GET request to lfppichichitrophy/" + player);
-        dbd.find({"player" :player}).toArray(function (err, filteredlfppichichitrophy) {
+        console.log("INFO: New GET request to /players/" + name);
+         dbd.find({name :name}).toArray(function (err, filteredplayers){
+        //db.find({}, function (err, players) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); // internal server error
-            } else {
-                if (filteredlfppichichitrophy.length > 0) {
-                    var uclchampion = filteredlfppichichitrophy[0];
-                    console.log("INFO: Sending uclchampion: " + JSON.stringify(uclchampion, 2, null));
-                    response.send(uclchampion);
+            }else{ /*else {
+                var filteredplayers = players.filter((contact) => {
+                    return (contact.name.localeCompare(name, "en", {'sensitivity': 'base'}) === 0);
+                });*/
+                if (filteredplayers.length > 0) {
+                    var contact = filteredplayers[0]; //since we expect to have exactly ONE contact with this name
+                    console.log("INFO: Sending contact: " + JSON.stringify(contact, 2, null));
+                    response.send(contact);
                 } else {
-                    console.log("WARNING: There are not any contact with player " + player);
+                    console.log("WARNING: There are not any contact with name " + name);
                     response.sendStatus(404); // not found
                 }
             }
@@ -305,32 +336,32 @@ app.get(BASE_API_PATH + "lfppichichitrophy/:player", function (request, response
 });
 
 
-//POST over a collection
-app.post(BASE_API_PATH + "lfppichichitrophy", function (request, response) {
-    var newUclchampion = request.body;
-    if (!newUclchampion) {
-        console.log("WARNING: New POST request to lfppichichitrophy/ without uclchampion, sending 400...");
+//POST over a collection -> Crear un nuevo recurso VA FLAMAAAAAAAAAAAAAAAA
+app.post(BASE_API_PATH + "/players", function (request, response) {
+    var newplayers = request.body;
+    if (!newplayers) {
+        console.log("WARNING: New POST request to /players/ without player, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New POST request to lfppichichitrophy with body: " + JSON.stringify(newUclchampion, 2, null));
-        if (!newUclchampion.player || !newUclchampion.champion || !newUclchampion.runnerup || !newUclchampion.stadium || !newUclchampion.city) {
-            console.log("WARNING: The uclchampion " + JSON.stringify(newUclchampion, 2, null) + " is not well-formed, sending 422...");
+        console.log("INFO: New POST request to /players with body: " + JSON.stringify(newplayers, 2, null));
+        if (!newplayers.nationality || !newplayers.season || !newplayers.name || !newplayers.team || !newplayers.goal) {
+            console.log("WARNING: The player " + JSON.stringify(newplayers, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            dbd.find({}, function (err, lfppichichitrophy) {
+            dbd.find({}, function (err, players) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
-                    var lfppichichitrophyBeforeInsertion = lfppichichitrophy.filter((uclchampion) => {
-                        return (uclchampion.player.localeCompare(newUclchampion.player, "en", {'sensitivity': 'base'}) === 0);
+                    var playersBeforeInsertion = players.filter((player) => {
+                        return (player.name.localeCompare(newplayers.name, "en", {'sensitivity': 'base'}) === 0);
                     });
-                    if (lfppichichitrophyBeforeInsertion.length > 0) {
-                        console.log("WARNING: The uclchampion " + JSON.stringify(newUclchampion, 2, null) + " already extis, sending 409...");
+                    if (playersBeforeInsertion.length > 0) {
+                        console.log("WARNING: The player " + JSON.stringify(newplayers, 2, null) + " already extis, sending 409...");
                         response.sendStatus(409); // conflict
                     } else {
-                        console.log("INFO: Adding uclchampion " + JSON.stringify(newUclchampion, 2, null));
-                        dbd.insert(newUclchampion);
+                        console.log("INFO: Adding player " + JSON.stringify(newplayers, 2, null));
+                        dbd.insert(newplayers);
                         response.sendStatus(201); // created
                     }
                 }
@@ -340,48 +371,48 @@ app.post(BASE_API_PATH + "lfppichichitrophy", function (request, response) {
 });
 
 
-//POST over a single resource
-app.post(BASE_API_PATH + "lfppichichitrophy/:player", function (request, response) {
-    var player = request.params.player;
-    console.log("WARNING: New POST request to lfppichichitrophy/" + player + ", sending 405...");
+//POST over a single resource -> Crear un recurso sobre un recurso -> Method Not Allowed -> VA FLAMAAAAA
+app.post(BASE_API_PATH + "/players/:name", function (request, response) {
+    var name = request.params.name;
+    console.log("WARNING: New POST request to /players/" + name + ", sending 405...");
     response.sendStatus(405); // method not allowed
 });
 
 
-//PUT over a collection
-app.put(BASE_API_PATH + "/contacts", function (request, response) {
-    console.log("WARNING: New PUT request to lfppichichitrophy, sending 405...");
+//PUT over a collection -> Method Not Allowed -> VA BIEN 
+app.put(BASE_API_PATH + "/players", function (request, response) {
+    console.log("WARNING: New PUT request to /players, sending 405...");
     response.sendStatus(405); // method not allowed
 });
 
 
 //PUT over a single resource
-app.put(BASE_API_PATH + "lfppichichitrophy/:player", function (request, response) {
-    var updatedUclchampion = request.body;
-    var player = request.params.player;
-    if (!updatedUclchampion) {
-        console.log("WARNING: New PUT request to lfppichichitrophy/ without uclchampion, sending 400...");
+app.put(BASE_API_PATH + "/players/:name", function (request, response) {
+    var updatedPlayer = request.body;
+    var name = request.params.name;
+    if (!updatedPlayer) {
+        console.log("WARNING: New PUT request to /players/ without contact, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New PUT request to lfppichichitrophy/" + player + " with data " + JSON.stringify(updatedUclchampion, 2, null));
-        if (!updatedUclchampion.player || !updatedUclchampion.champion || !updatedUclchampion.runnerup || !updatedUclchampion.stadium || !updatedUclchampion.city) {
-            console.log("WARNING: The uclchampion " + JSON.stringify(updatedUclchampion, 2, null) + " is not well-formed, sending 422...");
+        console.log("INFO: New PUT request to /players/" + name + " with data " + JSON.stringify(updatedPlayer, 2, null));
+        if (!updatedPlayer.nationality || !updatedPlayer.season || !updatedPlayer.name || !updatedPlayer.team || !updatedPlayer.goal) {
+            console.log("WARNING: The player " + JSON.stringify(updatedPlayer, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            dbd.find({}, function (err, lfppichichitrophy) {
+            dbd.find({}, function (err, players) {
                 if (err) {
-                    console.error('WARNING: Error getting data from DB');
+                    console.error('WARNING: Error getting data from DBD');
                     response.sendStatus(500); // internal server error
                 } else {
-                    var lfppichichitrophyBeforeInsertion = lfppichichitrophy.filter((uclchampion) => {
-                        return (uclchampion.player.localeCompare(player, "en", {'sensitivity': 'base'}) === 0);
+                    var playersBeforeInsertion = players.filter((player) => {
+                        return (player.name.localeCompare(updatedPlayer.name, "en", {'sensitivity': 'base'}) === 0);
                     });
-                    if (lfppichichitrophyBeforeInsertion.length > 0) {
-                        dbd.update({player: player}, updatedUclchampion);
-                        console.log("INFO: Modifying uclchampion with player " + player + " with data " + JSON.stringify(updatedUclchampion, 2, null));
-                        response.send(updatedUclchampion); // return the updated uclchampion
+                    if (playersBeforeInsertion.length > 0) {
+                        dbd.update({name: name}, updatedPlayer);
+                        console.log("INFO: Modifying contact with name " + name + " with data " + JSON.stringify(updatedPlayer, 2, null));
+                        response.send(updatedPlayer); // return the updated contact
                     } else {
-                        console.log("WARNING: There are not any uclchampion with player " + player);
+                        console.log("WARNING: There are not any contact with name " + name);
                         response.sendStatus(404); // not found
                     }
                 }
@@ -391,19 +422,19 @@ app.put(BASE_API_PATH + "lfppichichitrophy/:player", function (request, response
 });
 
 
-//DELETE over a collection
-app.delete(BASE_API_PATH + "lfppichichitrophy", function (request, response) {
-    console.log("INFO: New DELETE request to lfppichichitrophy");
+//DELETE over a collection -> VA FLAMA 
+app.delete(BASE_API_PATH + "/players", function (request, response) {
+    console.log("INFO: New DELETE request to /players");
     dbd.remove({}, {multi: true}, function (err, numRemoved) {
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
             if (numRemoved > 0) {
-                console.log("INFO: All the lfppichichitrophy (" + numRemoved + ") have been succesfully deleted, sending 204...");
+                console.log("INFO: All the players (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
-                console.log("WARNING: There are no contacts to delete");
+                console.log("WARNING: There are no players to delete");
                 response.sendStatus(404); // not found
             }
         }
@@ -411,25 +442,25 @@ app.delete(BASE_API_PATH + "lfppichichitrophy", function (request, response) {
 });
 
 
-//DELETE over a single resource
-app.delete(BASE_API_PATH + "lfppichichitrophy/:player", function (request, response) {
-    var player = request.params.player;
-    if (!player) {
-        console.log("WARNING: New DELETE request to lfppichichitrophy/:player without player, sending 400...");
+//DELETE over a single resource ->  VA BIEN
+app.delete(BASE_API_PATH + "/players/:name", function (request, response) {
+    var name = request.params.name;
+    if (!name) {
+        console.log("WARNING: New DELETE request to /players/:name without name, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New DELETE request to lfppichichitrophy/" + player);
-        dbd.remove({player:player}, {}).toArray(function (err, numRemoved) {
+        console.log("INFO: New DELETE request to /players/" + name);
+        dbd.remove({name: name}, {}, function (err, numRemoved) {
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
-                console.log("INFO: lfppichichitrophy removed: " + numRemoved);
+                console.log("INFO: players removed: " + numRemoved);
                 if (numRemoved === 1) {
-                    console.log("INFO: The uclchampion with player " + player + " has been succesfully deleted, sending 204...");
+                    console.log("INFO: The contact with name " + name + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
-                    console.log("WARNING: There are no contacts to delete");
+                    console.log("WARNING: There are no players to delete");
                     response.sendStatus(404); // not found
                 }
             }

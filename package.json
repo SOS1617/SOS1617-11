@@ -25,5 +25,6 @@
     "mongodb": "^2.2.25",
     "nedb": "^1.8.0",
     "path": "^0.12.7"
-  }
+  },
+  "devDependencies": {}
 }

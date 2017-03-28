@@ -21,3 +21,34 @@ curl -v -XPOST -H 'Content-type: application/json' -d '{ "year": "2002", "champi
 
 PUT a la ruta base (p.e. “/towns”) debe dar un error de método no permitido.
 curl -v -XPUT -H 'Content-type: application/json' -d '{ "year": "2012", "champion": "Barcelona", "runnerup": "Juventus", "stadium": "Olympiastadion", "city": "Berlin" }' 'https://sos1617-11.herokuapp.com/api/v1/uclchampions'
+
+
+
+//======================================LFP PICHICHI TROPHY STATS========================================================
+
+
+GET a la ruta base (p.e. “/towns”) devuelve una lista con todos los recursos
+curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/players'
+
+GET a un recurso (p.e. “/towns/seville”) devuelve ese recurso 
+curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/players/messi'
+
+POST a la ruta base (p.e. “/towns”) crea un nuevo recurso
+curl -v -XPOST -H 'Content-type: application/json' -d '{  "nationality":"argentina","season":"2011-12","name":"pepe","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/players'
+
+POST a un recurso (p.e. “/towns/seville”) debe dar un error de método no permitido.
+curl -v -XPOST -H 'Content-type: application/json' -d '{ "nationality":"argentina","season":"2011-12","name":"messi","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/players/messi'
+
+DELETE a un recurso (p.e. “/towns/seville”) borra ese recurso
+curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/players/pepe'
+
+DELETE a la ruta base (p.e. “/towns/) borra la lista
+curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/players/'
+
+
+PUT a la ruta base (p.e. “/towns”) debe dar un error de método no permitido.
+curl -v -XPUT -H 'Content-type: application/json' -d '{  "nationality":"argentina","season":"2011-12","name":"messi","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/players'
+
+
+PUT a un recurso (p.e. “/towns/seville”) actualiza ese recurso 
+curl -v -XPUT -H 'Content-type: application/json' -d '{"nationality":"argentina","season":"2011-12","name":"messiNuevo","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/players/messi'

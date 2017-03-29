@@ -1,0 +1,21 @@
+GET a la ruta base (p.e. “/towns”) devuelve una lista con todos los recursos
+curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/lfpchampions'
+
+POST a la ruta base (p.e. “/towns”) crea un nuevo recurso
+curl -v -XPOST -H 'Content-type: application/json' -d '{ "champion": "Atlético Madrid", "championcity": "Madrid", "season": "2013-14", "runnerup": "F.C. Barcelona" }' 'http://localhost:8080/api/v1/lfpchampions'
+
+GET a un recurso (p.e. “/towns/seville”) devuelve ese recurso 
+curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/lfpchampions/2015-16'
+
+DELETE a un recurso (p.e. “/towns/seville”) borra ese recurso
+curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/lfpchampions/2015-16'
+
+PUT a un recurso (p.e. “/towns/seville”) actualiza ese recurso 
+curl -v -XPUT -H 'Content-type: application/json' -d '{  "champion":"F.C. Barcelona", "championcity":"Barcelona", "season":"2014-15", "runnerup":"Real Madrid C.F."}' 'http://localhost:8080/api/v1/lfpchampions/2015-16'
+
+POST a un recurso (p.e. “/towns/seville”) debe dar un error de método no permitido.
+curl -v -XPOST -H 'Content-type: application/json' -d '{  "champion": "F.C. Barcelona", "champion-city": "Barcelona", "season": "2015-16", "runnerup": "Real Madrid C.F."}' 'http://localhost:8080/api/v1/lfpchampions/2015-16'
+
+
+PUT a la ruta base (p.e. “/towns”) debe dar un error de método no permitido.
+curl -v -XPUT -H 'Content-type: application/json' -d '{  "champion": "F.C. Barcelona", "champion-city": "Barcelona", "season": "2015-16", "runnerup": "Real Madrid C.F."}' 'http://localhost:8080/api/v1/lfpchampions'

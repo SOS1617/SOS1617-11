@@ -539,6 +539,7 @@ app.get(BASE_API_PATH + "/lfpchampions", function (request, response) {
         } else {
             console.log("INFO: Sending lfpchampions: " + JSON.stringify(lfpchampions, 2, null));
             response.send(lfpchampions);
+            response.sendStatus(200);
         }
     });
 });

@@ -10,6 +10,9 @@ curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1
 DELETE a un recurso (p.e. “/towns/seville”) borra ese recurso
 curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/uclchampions/2015'
 
+DELETE a la ruta base (p.e. “/towns”) borra todos los recursos
+curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/uclchampions'
+
 PUT a un recurso (p.e. “/towns/seville”) actualiza ese recurso 
 curl -v -XPUT -H 'Content-type: application/json' -d '{ "year": "2014", "champion": "Oporto", "runnerup": "Chelsea","stadium": "Bernabeu" ,"city": "Madrid"}' 'http://localhost:8080/api/v1/uclchampions/2014'
 

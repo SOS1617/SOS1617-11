@@ -1,4 +1,4 @@
-//================================================UCLCHAMPIONS-STATS==============================================================
+
 "use strict";
 /* global __dirname */
 
@@ -44,18 +44,23 @@ app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/api/v1/tests", express.static(path.join(__dirname , "public/tests.html")));
 
 
+//================================================UCLCHAMPIONS-STATS==============================================================
+
+
 
 app.get(BASE_API_PATH + "/uclchampions/loadInitialData",function(request, response) {
     
     db.find({}).toArray(function(err,uclchampions){
         
          if (err) {
-        console.error('WARNING: Error while getting initial data from DB');
-        return 0;
-    }
+            console.error('WARNING: Error while getting initial data from DB');
+            response.sendStatus(201);
+            return 0;
+
+        }
     
-      if (uclchampions.length === 0) {
-        console.log('INFO: Empty DB, loading initial data');
+        if (uclchampions.length === 0) {
+            console.log('INFO: Empty DB, loading initial data');
 
               var uclchampions = [{
                 "year": "2016",
@@ -78,11 +83,12 @@ app.get(BASE_API_PATH + "/uclchampions/loadInitialData",function(request, respon
                 "stadium": "Estádio da Luz",
                 "city": "Lisboa"
             }];
-            db.insert(uclchampions);
-      } else {
+        db.insert(uclchampions);
+        response.sendStatus(201);
+        } else {
         console.log('INFO: DB has ' + uclchampions.length + ' results ');
-    }
-});
+        }
+    });
 });
 
 
@@ -144,13 +150,13 @@ app.post(BASE_API_PATH + "/uclchampions", function (request, response) {
             console.log("WARNING: The uclchampion " + JSON.stringify(newUclchampion, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            db.find({}, function (err, uclchampions) {
+            db.find({}).toArray(function (err, uclchampions) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
                     var uclchampionsBeforeInsertion = uclchampions.filter((uclchampion) => {
-                        return (uclchampion.player.localeCompare(newUclchampion.year, "en", {'sensitivity': 'base'}) === 0);
+                        return (uclchampion.year.localeCompare(newUclchampion.year, "en", {'sensitivity': 'base'}) === 0);
                     });
                     if (uclchampionsBeforeInsertion.length > 0) {
                         console.log("WARNING: The uclchampion " + JSON.stringify(newUclchampion, 2, null) + " already extis, sending 409...");
@@ -183,7 +189,7 @@ app.put(BASE_API_PATH + "/uclchampions", function (request, response) {
 
 
 //PUT over a single resource
-/*app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
+app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
     var updatedUclchampion = request.body;
     var year = request.params.year;
     if (!updatedUclchampion) {
@@ -191,6 +197,10 @@ app.put(BASE_API_PATH + "/uclchampions", function (request, response) {
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New PUT request to /uclchampions/" + year + " with data " + JSON.stringify(updatedUclchampion, 2, null));
+        if(updatedUclchampion.year!=year){
+            console.log("WARNING: New PUT request to /uclchampions/ with diferent year, sending 400...");
+            response.sendStatus(400); // bad request
+        }
         if (!updatedUclchampion.year || !updatedUclchampion.champion || !updatedUclchampion.runnerup || !updatedUclchampion.stadium || !updatedUclchampion.city) {
             console.log("WARNING: The uclchampion " + JSON.stringify(updatedUclchampion, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
@@ -201,7 +211,7 @@ app.put(BASE_API_PATH + "/uclchampions", function (request, response) {
                     response.sendStatus(500); // internal server error
                 } else {
                     var uclchampionsBeforeInsertion = uclchampions.filter((uclchampion) => {
-                        return (uclchampion.year === year);
+                        return (uclchampion.year.localeCompare(updatedUclchampion.year, "en", {'sensitivity': 'base'}) === 0);
                     });
                     if (uclchampionsBeforeInsertion.length > 0) {
                         db.update({year: year}, updatedUclchampion);
@@ -216,41 +226,7 @@ app.put(BASE_API_PATH + "/uclchampions", function (request, response) {
         }
     }
 });
-*/
 
-app.put(BASE_API_PATH + "/provinces/:province", function (request, response) {
-    var updatedUclchampion = request.body;
-    var year = request.params.year;
-    if (!updatedUclchampion) {
-        console.log("WARNING: New PUT request to /uclchampions without stat, sending 400...");
-        response.sendStatus(400); // bad request
-    } else {
-        console.log("INFO: New PUT request to /uclchampions" + year + " with data " + JSON.stringify(updatedUclchampion, 2, null));
-        if (!updatedUclchampion.year || !updatedUclchampion.champion || !updatedUclchampion.runnerup || !updatedUclchampion.stadium || !updatedUclchampion.city) {
-            console.log("WARNING: The stat " + JSON.stringify(updatedUclchampion, 2, null) + " is not well-formed, sending 422...");
-            response.sendStatus(422); // unprocessable entity
-        } else {
-            db.find({}).toArray( function (err, uclchampions) {
-                if (err) {
-                    console.error('WARNING: Error getting data from DB');
-                    response.sendStatus(500); // internal server error
-                } else {
-                    var uclchampionsBeforeInsertion = uclchampions.filter((stat) => {
-                        return (stat.localeCompare(year, "en", {'sensitivity': 'base'}) === 0);
-                    });
-                    if (uclchampionsBeforeInsertion.length > 0) {
-                        db.update({year:year}, updatedUclchampion);
-                        console.log("INFO: Modifying stat with year " + year + " with data " + JSON.stringify(updatedUclchampion, 2, null));
-                        response.send(updatedUclchampion); // return the updated stat
-                    } else {
-                        console.log("WARNING: There are not any stat with year " + year);
-                        response.sendStatus(404); // not found
-                    }
-                }
-            });
-        }
-    }
-});
 
 
 

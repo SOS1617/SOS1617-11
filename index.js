@@ -453,13 +453,12 @@ app.put(BASE_API_PATH + "/players/:name", function (request, response) {
 app.delete(BASE_API_PATH + "/players", function (request, response) {
     console.log("INFO: New DELETE request to /players");
     dbd.remove({}, {multi: true}, function (err, numRemoved) {
-         var numRemoved = JSON.parse(numRemoved);
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (numRemoved.n > 0) {
-                console.log("INFO: All the players (" + numRemoved.n + ") have been succesfully deleted, sending 204...");
+            if (numRemoved > 0) {
+                console.log("INFO: All the players (" + numRemoved + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
                 console.log("WARNING: There are no players to delete");
@@ -468,8 +467,6 @@ app.delete(BASE_API_PATH + "/players", function (request, response) {
         }
     });
 });
-
-
 
 
 //DELETE over a single resource ->  VA BIEN

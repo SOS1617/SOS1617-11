@@ -417,11 +417,16 @@ app.put(BASE_API_PATH + "/players/:name", function (request, response) {
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New PUT request to /players/" + name + " with data " + JSON.stringify(updatedPlayer, 2, null));
+        if(updatedPlayer.name!=name){
+            console.log("WARNING: New PUT request to /players/ with diferent name, sending 400...");
+            response.sendStatus(400); // bad request
+        }
+        
         if (!updatedPlayer.nationality || !updatedPlayer.season || !updatedPlayer.name || !updatedPlayer.team || !updatedPlayer.goal) {
             console.log("WARNING: The player " + JSON.stringify(updatedPlayer, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            dbd.find({}, function (err, players) {
+            dbd.find({}).toArray(function (err, players) {
                 if (err) {
                     console.error('WARNING: Error getting data from DBD');
                     response.sendStatus(500); // internal server error
@@ -448,12 +453,13 @@ app.put(BASE_API_PATH + "/players/:name", function (request, response) {
 app.delete(BASE_API_PATH + "/players", function (request, response) {
     console.log("INFO: New DELETE request to /players");
     dbd.remove({}, {multi: true}, function (err, numRemoved) {
+         var numRemoved = JSON.parse(numRemoved);
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (numRemoved > 0) {
-                console.log("INFO: All the players (" + numRemoved + ") have been succesfully deleted, sending 204...");
+            if (numRemoved.n > 0) {
+                console.log("INFO: All the players (" + numRemoved.n + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
                 console.log("WARNING: There are no players to delete");
@@ -462,6 +468,8 @@ app.delete(BASE_API_PATH + "/players", function (request, response) {
         }
     });
 });
+
+
 
 
 //DELETE over a single resource ->  VA BIEN

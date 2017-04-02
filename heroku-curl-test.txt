@@ -28,30 +28,30 @@ curl -v -XPUT -H 'Content-type: application/json' -d '{ "year": "2012", "champio
 
 
 GET a la ruta base (p.e. “/towns”) devuelve una lista con todos los recursos
-curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/players'
+curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/lfppichichitrophy'
 
 GET a un recurso (p.e. “/towns/seville”) devuelve ese recurso 
-curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/players/messi'
+curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/lfppichichitrophy/2011-12'
 
 POST a la ruta base (p.e. “/towns”) crea un nuevo recurso
-curl -v -XPOST -H 'Content-type: application/json' -d '{  "nationality":"argentina","season":"2011-12","name":"pepe","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/players'
+curl -v -XPOST -H 'Content-type: application/json' -d '{  "nationality":"argentina","season":"2011-12","name":"pepe","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/lfppichichitrophy'
 
 POST a un recurso (p.e. “/towns/seville”) debe dar un error de método no permitido.
-curl -v -XPOST -H 'Content-type: application/json' -d '{ "nationality":"argentina","season":"2011-12","name":"messi","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/players/messi'
+curl -v -XPOST -H 'Content-type: application/json' -d '{ "nationality":"argentina","season":"2012-13","name":"messi","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/lfppichichitrophy/2011-12'
 
 DELETE a un recurso (p.e. “/towns/seville”) borra ese recurso
-curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/players/pepe'
+curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/lfppichichitrophy/2011-12'
 
 DELETE a la ruta base (p.e. “/towns/) borra la lista
-curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/players/'
+curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/lfppichichitrophy/'
 
 
 PUT a la ruta base (p.e. “/towns”) debe dar un error de método no permitido.
-curl -v -XPUT -H 'Content-type: application/json' -d '{  "nationality":"argentina","season":"2011-12","name":"messi","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/players'
+curl -v -XPUT -H 'Content-type: application/json' -d '{  "nationality":"argentina","season":"2011-12","name":"messi","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/lfppichichitrophy'
 
 
 PUT a un recurso (p.e. “/towns/seville”) actualiza ese recurso 
-curl -v -XPUT -H 'Content-type: application/json' -d '{"nationality":"argentina","season":"2011-12","name":"messiNuevo","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/players/messi'
+curl -v -XPUT -H 'Content-type: application/json' -d '{"nationality":"argentina","season":"2011-12","name":"messi","team":"fcb barcelona","goal":"75" }' 'http://localhost:8080/api/v1/lfppichichitrophy/2011-12'
 
 //============================ LFP CHAMPIONS STATS =======================================
 

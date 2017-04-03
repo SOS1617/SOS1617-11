@@ -51,17 +51,41 @@ app.get(BASE_API_PATH + "/uclchampions/loadInitialData",function(request, respon
 // GET a collection
 app.get(BASE_API_PATH + "/uclchampions", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
+    var url = request.query;
+    var year = url.year;
+    var champion = url.champion;
+    var runnerup = url.runnerup;
+    var stadium = url.stadium;
+    var city = url.city;
+
     console.log("INFO: New GET request to /uclchampions");
     db.find({}).toArray(function (err, uclchampions) {
         if (err) {
             console.error('WARNING: Error getting data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            console.log("INFO: Sending uclchampions: " + JSON.stringify(uclchampions, 2, null));
-            response.send(uclchampions);
+            //console.log("INFO: Sending uclchampions: " + JSON.stringify(uclchampions, 2, null));
+            //response.send(uclchampions);
+            var filtered = uclchampions.filter((param) => {
+            if ((year == undefined || param.year == year) && (champion == undefined || param.champion == champion) && 
+            (runnerup == undefined || param.runnerup == runnerup) && (stadium == undefined || param.stadium == stadium) && 
+            (city == undefined || param.city == city)) {
+            return param;
+            }
+        });
         }
+    if (filtered.length > 0) {
+       console.log("INFO: Sending stat: " + JSON.stringify(filtered, 2, null));
+       response.send(filtered);
+      }
+    else {
+       console.log("WARNING: There are not any contact with this properties");
+       response.sendStatus(404); // not found
+    }
     });
 });
+
+
 
 
 // GET a single resource

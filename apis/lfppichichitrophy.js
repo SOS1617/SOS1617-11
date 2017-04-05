@@ -129,7 +129,7 @@ app.get(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, respons
     if (!checkApiKeyFunction(request, response)) return;    
     var season = request.params.season;
     if (!season) {
-        console.log("WARNING: New GET request to /lfppichichitrophy/:season without year, sending 400...");
+        console.log("WARNING: New GET request to /lfppichichitrophy/:season without season, sending 400...");
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New GET request to /lfppichichitrophy/" + season);
@@ -212,7 +212,7 @@ app.put(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
 
 
 //PUT over a single resource 
-app.put(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, response) {
+/*app.put(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, response) {
     //if(checkApiKeyFunction(request, response) == true){
     if (!checkApiKeyFunction(request, response)) return;
     var updatedlfppichichitrophy = request.body;
@@ -244,7 +244,7 @@ app.put(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, respons
                         response.send(updatedlfppichichitrophy); // return the updated lfppichichitrophy
                         response.sendStatus(201);
                     } else {
-                        console.log("WARNING: There are not any lfppichichitrophy with year " + season);
+                        console.log("WARNING: There are not any lfppichichitrophy with season " + season);
                         response.sendStatus(404); // not found
                     }
                 }
@@ -252,7 +252,54 @@ app.put(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, respons
         }
     //}
     }
+});*/
+
+
+app.put(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, response) {
+    if (!checkApiKeyFunction(request, response)) return;
+    var updatedlfppichichitrophy = request.body;
+    var season = request.params.season;
+    if (!updatedlfppichichitrophy) {
+        console.log("WARNING: New PUT request to /lfppichichitrophy/ without lfppichichitrophy, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New PUT request to /lfppichichitrophy/" + season + " with data " + JSON.stringify(updatedlfppichichitrophy, 2, null));
+        if(updatedlfppichichitrophy.season!=season){
+            console.log("WARNING: New PUT request to /lfppichichitrophy/ with diferent season, sending 400...");
+            response.sendStatus(400); // bad request
+        }
+        if (!updatedlfppichichitrophy.nationality || !updatedlfppichichitrophy.season || !updatedlfppichichitrophy.name || !updatedlfppichichitrophy.team || !updatedlfppichichitrophy.goal) {
+            console.log("WARNING: The lfppichichitrophy " + JSON.stringify(updatedlfppichichitrophy, 2, null) + " is not well-formed, sending 422...");
+            response.sendStatus(422); // unprocessable entity
+        } else {
+            dbd.find({}).toArray(function (err, lfppichichitrophy) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500); // internal server error
+                } else {
+                    var lfppichichitrophyBeforeInsertion = lfppichichitrophy.filter((lfppichichitrophy) => {
+                        return (lfppichichitrophy.season.localeCompare(updatedlfppichichitrophy.season, "en", {'sensitivity': 'base'}) === 0);
+                    });
+                    if (lfppichichitrophyBeforeInsertion.length > 0) {
+                        dbd.update({season: season}, updatedlfppichichitrophy);
+                        console.log("INFO: Modifying lfppichichitrophy with season " + season + " with data " + JSON.stringify(updatedlfppichichitrophy, 2, null));
+                        response.send(updatedlfppichichitrophy); // return the updated lfppichichitrophy
+                    } else {
+                        console.log("WARNING: There are not any lfppichichitrophy with season " + season);
+                        response.sendStatus(404); // not found
+                    }
+                }
+            });
+        }
+    }
 });
+
+
+
+
+
+
+
 
 //DELETE over a collection 
 app.delete(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
@@ -285,7 +332,7 @@ app.delete(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, resp
     if (!checkApiKeyFunction(request, response)) return;
     var seasonParam = request.params.season;
     if (!seasonParam) {
-        console.log("WARNING: New DELETE request to /lfppichichitrophy/:season without year, sending 400...");
+        console.log("WARNING: New DELETE request to /lfppichichitrophy/:season without season, sending 400...");
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New DELETE request to /lfppichichitrophy/" + seasonParam);

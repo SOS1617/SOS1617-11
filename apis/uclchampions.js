@@ -107,7 +107,7 @@ app.get(BASE_API_PATH + "/uclchampions", function (request, response) {
             (city == undefined || param.city == city)) {
             return param;
             }
-        });
+            });
         }
     if (filtered.length > 0) {
        console.log("INFO: Sending stat: "+ JSON.stringify(filtered, 2, null));
@@ -125,7 +125,7 @@ app.get(BASE_API_PATH + "/uclchampions", function (request, response) {
 });
 
 //Funcion paginacion
-var insertar = function(elementos,array,limit,offset){
+function insertar (elementos,array,limit,offset){
     var i = offset;
     var ii = limit;
     while(ii>0){
@@ -133,7 +133,7 @@ var insertar = function(elementos,array,limit,offset){
         ii--;
         i++;
     }
-    return array;
+    return elementos;
 }
 
 

@@ -50,11 +50,7 @@ app.get(BASE_API_PATH + "/uclchampions/loadInitialData",function(request, respon
 function paginate(offset, limit, array, response) {
         var res = [];
         var cont = 0;
-
-        if (offset == undefined)
-            offset = 0;
-        if (limit == undefined)
-            limit = array.length;
+        
         if (offset > array.length) {
             console.log("ERROR: Offset is greater than the array size");
             response.sendStatus(400);

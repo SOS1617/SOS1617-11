@@ -119,7 +119,7 @@ var insertar = function(elementos,array,limit,offset){
         ii--;
         i++;
     }
-    return array;
+    return elementos;
 }
 
 

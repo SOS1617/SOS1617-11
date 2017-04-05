@@ -242,6 +242,7 @@ app.put(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, respons
                         dbd.update({season: season}, updatedlfppichichitrophy);
                         console.log("INFO: Modifying lfppichichitrophy with season " + season + " with data " + JSON.stringify(updatedlfppichichitrophy, 2, null));
                         response.send(updatedlfppichichitrophy); // return the updated lfppichichitrophy
+                        response.sendStatus(201);
                     } else {
                         console.log("WARNING: There are not any lfppichichitrophy with year " + season);
                         response.sendStatus(404); // not found

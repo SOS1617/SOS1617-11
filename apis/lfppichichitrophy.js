@@ -219,7 +219,7 @@ app.put(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, respons
     var season = request.params.season;
     if (!updatedlfppichichitrophy) {
         console.log("WARNING: New PUT request to /lfppichichitrophy/ without lfppichichitrophy, sending 400...");
-        response.sendStatus(400); // bad request
+        response.sendStatus(408); // bad request
     } else {
         console.log("INFO: New PUT request to /lfppichichitrophy/" + season + " with data " + JSON.stringify(updatedlfppichichitrophy, 2, null));
         if(updatedlfppichichitrophy.season!=season){

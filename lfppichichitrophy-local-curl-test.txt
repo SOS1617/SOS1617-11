@@ -19,8 +19,8 @@ curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api
 
 
 PUT a la ruta base (p.e. “/towns”) debe dar un error de método no permitido.
-curl -v -XPUT -H 'Content-type: application/json' -d '{  "nationality":"argentina","season":"2011-12","name":"messi","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/lfppichichitrophy'
+curl -v -XPUT -H 'Content-type: application/json' -d '{  "nationality":"argentina","season":"2011-12","name":"messi","team":"fcb barcelona","goal":"50" }' 'http://localhost:8080/api/v1/lfppichichitrophy?apikey=adrdavand'
 
 
 PUT a un recurso (p.e. “/towns/seville”) actualiza ese recurso 
-curl -v -XPUT -H 'Content-type: application/json' -d '{"nationality":"argentina","season":"2011-12","name":"messi","team":"fc barcelona","goal":"80" }' 'http://localhost:8080/api/v1/lfppichichitrophy/messi'
+curl -v -XPUT -H 'Content-type: application/json' -d '{"nationality":"argentina","season":"2011-12","name":"messi","team":"fc barcelona","goal":"80" }' 'http://localhost:8080/api/v1/lfppichichitrophy/2011-12?apikey=adrdavand'

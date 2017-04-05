@@ -133,7 +133,7 @@ var insertar = function(elementos,array,limit,offset){
         ii--;
         i++;
     }
-    return elementos;
+    return array;
 }
 
 

@@ -78,4 +78,4 @@ app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
 app.use("/", express.static(path.join(__dirname, "public")));
-app.use(BASE_API_PATH + "/public", express.static(path.join(__dirname , "tests")));
+app.use(BASE_API_PATH + "/tests", express.static(path.join(__dirname , "public/tests.html")));

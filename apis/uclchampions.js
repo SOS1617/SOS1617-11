@@ -113,7 +113,9 @@ app.get(BASE_API_PATH + "/uclchampions", function (request, response) {
        console.log("INFO: Sending stat: " + JSON.stringify(filtered, 2, null));
        response.send(filtered);
       }
-    else {
+    if(uclchampions.length >=0){
+            response.send(uclchampions);
+    }else{
        console.log("WARNING: There are not any contact with this properties");
        response.sendStatus(404); // not found
     }

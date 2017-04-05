@@ -47,6 +47,27 @@ app.get(BASE_API_PATH + "/uclchampions/loadInitialData",function(request, respon
     });
 });
 
+function paginate(offset, limit, array, response) {
+        var res = [];
+        var cont = 0;
+
+        if (offset == undefined)
+            offset = 0;
+        if (limit == undefined)
+            limit = array.length;
+        if (offset > array.length) {
+            console.log("ERROR: Offset is greater than the array size");
+            response.sendStatus(400);
+        }
+        else
+            for (var i = offset; i < array.length; i++)
+                if (limit > cont) {
+                    res.push(array[i]);
+                    cont++;
+                }
+        return res;
+    }
+
 
 // GET a collection
 app.get(BASE_API_PATH + "/uclchampions", function (request, response) {
@@ -85,8 +106,8 @@ app.get(BASE_API_PATH + "/uclchampions", function (request, response) {
             }
          
         if (filtered.length > 0) {
-            elementos = insertar(filtered, elementos,limit,offset);
-            response.send(elementos);
+            var pag = paginate(offset, limit, filtered, response);
+            response.send(pag);
           }
         else {
            console.log("WARNING: There are not any contact with this properties");

@@ -8,8 +8,8 @@ exports.register = function(app, dbd, BASE_API_PATH, checkApiKeyFunction){
 app.get(BASE_API_PATH + "/lfppichichitrophy/loadInitialData", function (request, response){
 if(checkApiKeyFunction(request,response)==true){
      var inicializacion = [{"nationality":"argentina","season":"2011-12","name":"messi","team":"fcb barcelona","goal":"50"},
-                {"nationality": "portuguese", "season": "2013-14", "player":"cristiano ronaldo", "team": "real madrid", "goal": "31"},
-                { "nationality": "brazilian", "season": "2003-04", "player":"ronaldo", "team": "real madrid", "goal": "24"}];
+                {"nationality": "portuguese", "season": "2013-14", "name":"cristiano ronaldo", "team": "real madrid", "goal": "31"},
+                { "nationality": "brazilian", "season": "2003-04", "name":"ronaldo", "team": "real madrid", "goal": "24"}];
                  console.log("INFO: Initializing data.");
  //Busca en la base de datos y obtiene un array
             dbd.find({}).toArray(function(err, lfppichichitrophy){

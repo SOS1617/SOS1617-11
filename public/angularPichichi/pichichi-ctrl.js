@@ -32,7 +32,7 @@ angular
                 $scope.lfppichichitrophy = response.data;
             }, function errorCallback(response){
                 console.log("Error callback");
-            }); }
+            });}
     
     /*
     function refresh(){
@@ -60,7 +60,7 @@ angular
     
     $scope.addPichichi = function (){
         $http
-            .post("/lfppichichitrophy" +"?apikey=adrdavand"+ $scope.newPichichi)
+            .post("/api/v1/lfppichichitrophy" +"?apikey=adrdavand"+ $scope.newPichichi)
             .then(function (response){
                 console.log("Contact added");
                 refresh();
@@ -79,7 +79,7 @@ angular
         }*/
         
           $scope.editaPichichi = function(){
-            $http.put("/lfppichichitrophy" +"/" + $scope.newPichichi.pichichi +"?apikey=adrdavand" +$scope.newPichichi)
+            $http.put("/api/v1/lfppichichitrophy" +"/" + $scope.newPichichi.pichichi +"?apikey=adrdavand" +$scope.newPichichi)
             .then(function(response){
                 console.log("Pichichi modificadao correctamente");
                 refresh();
@@ -101,7 +101,7 @@ angular
     $scope.deletePichichi = function (season){
          console.log("Eliminando el pichichi de la temporada" + season);
         $http
-            .delete("/lfppichichitrophy"+"/" + season +"/?apikey=adrdavand")
+            .delete("/api/v1/lfppichichitrophy"+"/" + season +"/?apikey=adrdavand")
             .then(function (response){
                 console.log("Pichichi de le temporada:" + season + "eliminado");
                 refresh();
@@ -120,7 +120,7 @@ angular
         
          $scope.deleteLista = function(){
             $http
-                .delete("/lfppichichitrophy"+"?apikey=adrdavand")
+                .delete("/api/v1/lfppichichitrophy"+"?apikey=adrdavand")
                 .then(function(response){
                     console.log("LISTA VACÍA");
                     refresh();
@@ -141,7 +141,7 @@ angular
         
         $scope.search = function(){
             $http
-                .get("/lfppichichitrophy"+"?apikey=adrdavand" + "&season="+$scope.newPichichi.season)
+                .get("/api/v1/lfppichichitrophy"+"?apikey=adrdavand" + "&season="+$scope.newPichichi.season)
                 .then(function(response){
                     console.log("El pichichi de la temporada: " + $scope.newPichichi.season + "es" + $scope.newPichichi.name);
                     $scope.data = JSON.stringify(response.data, null, 2);

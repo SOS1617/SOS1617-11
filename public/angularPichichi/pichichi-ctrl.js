@@ -38,7 +38,7 @@ angular
     function refresh(){
          $http
             .get("/lfppichichitrophy"+"?apikey="+ $scope.apikey)
-            /*.get("api/v1/lfppichichitrophy")
+            /*.get("api/v1/lfppichichitrophy")*/
             .then(function (response){
                 $scope.data = JSON.stringify(response.data, null, 2);
                 $scope.lfppichichitrophy = response.data;

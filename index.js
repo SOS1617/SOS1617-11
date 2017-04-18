@@ -79,3 +79,14 @@ app.use(helmet()); //improve security
 
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use(BASE_API_PATH + "/tests", express.static(path.join(__dirname , "public/tests.html")));
+
+
+////////////////////////////URL HTMLS///////////////////////
+var publicFolder = path.join(__dirname, 'public');
+
+app.get(BASE_API_PATH+"/pichichi-angular", function(request, response){
+    response.sendfile(publicFolder + "/angularPichichi/index.html");
+    
+    
+    
+});

@@ -16,7 +16,7 @@ angular
             })
         }*/
      $scope.loadInitialData= function(){
-            $http.get("/lfppichichitrophy"+"/loadInitialData?apikey=adrdavand")
+            $http.get("api/v1/lfppichichitrophy"+"/loadInitialData?apikey=adrdavand")
             .then(function(){
                 console.log("Load initial data: OK");
                 refresh();
@@ -25,7 +25,7 @@ angular
         
         function refresh(){
          $http
-            .get("api/v1/lfppichichitrophy"+"?apikey=adrdavand")
+            .get("/lfppichichitrophy"+"?apikey=adrdavand")
             /*.get("api/v1/lfppichichitrophy")*/
             .then(function (response){
                 $scope.data = JSON.stringify(response.data, null, 2);

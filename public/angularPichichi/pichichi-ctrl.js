@@ -2,7 +2,7 @@
 
 angular
     .module("PichichiManagerApp")
-    .controller("ListCtrl", ["$scope", "$http", function ($scope, $http){
+    .controller("Pichichi-ctrl", ["$scope", "$http", function ($scope, $http){
     
     console.log("Controller initialized (splited right)");
     

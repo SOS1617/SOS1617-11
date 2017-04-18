@@ -9,7 +9,7 @@ angular
     
     //CARGAR DATOS
         $scope.loadInitialData= function(){
-            $http.get("api/v1/lfppichichitrophy"+"/loadInitialData?apikey="+$scope.apikey)
+            $http.get("/lfppichichitrophy"+"/loadInitialData?apikey="+$scope.apikey)
             .then(function(){
                 console.log("Load initial data: OK");
                 refresh();
@@ -18,7 +18,7 @@ angular
     
     function refresh(){
          $http
-            .get("api/v1/lfppichichitrophy"+"?apikey="+ $scope.apikey)
+            .get("/lfppichichitrophy"+"?apikey="+ $scope.apikey)
             /*.get("api/v1/lfppichichitrophy")*/
             .then(function (response){
                 $scope.data = JSON.stringify(response.data, null, 2);

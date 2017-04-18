@@ -109,7 +109,6 @@ app.get(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
    }//}
 });
 
-
 //Funcion paginacion
 var insertar = function(elementos,array,limit,offset){
     var i = offset;
@@ -121,7 +120,6 @@ var insertar = function(elementos,array,limit,offset){
     }
     return elementos;
 }
-
 
 // GET a single resource
 app.get(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, response) {
@@ -150,7 +148,6 @@ app.get(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, respons
         });
     }//}
 });
-
 
 //POST over a collection 
 app.post(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
@@ -189,7 +186,6 @@ app.post(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
     //}
 });
 
-
 //POST over a single resource 
 app.post(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
@@ -199,7 +195,6 @@ app.post(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, respon
     response.sendStatus(405); // method not allowed
     //}
 });
-
 
 //PUT over a collection 
 app.put(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
@@ -254,7 +249,6 @@ app.put(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
     }
 });*/
 
-
 app.put(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     var updatedlfppichichitrophy = request.body;
@@ -294,13 +288,6 @@ app.put(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, respons
     }
 });
 
-
-
-
-
-
-
-
 //DELETE over a collection 
 app.delete(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
     //if(checkApiKeyFunction(request, response) == true){
@@ -324,7 +311,6 @@ app.delete(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
     });
     //}
 });
-
 
 //DELETE over a single resource
 app.delete(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, response) {
@@ -355,7 +341,6 @@ app.delete(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, resp
     //}
     }
 });
-
 
 
 }

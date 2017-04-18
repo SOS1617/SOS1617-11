@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app="PichichiManagerApp">
+    <head>
+        <title>My app</title>
+        <link 
+            rel="stylesheet" 
+            href="/bower_components/bootstrap/dist/css/bootstrap.min.css" 
+            type="text/css" />
+        <link 
+            rel="stylesheet" 
+            href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" 
+            type="text/css" />
+        <script 
+            type="text/javascript" 
+            src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <script 
+            type="text/javascript" 
+            src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script 
+            type="text/javascript" 
+            src="/bower_components/angular/angular.min.js"></script>
+        
+        <script type="text/javascript" src="/angularPichichi/pichichi-manager.js"></script>
+        <script type="text/javascript" src="/angularPichichi/pichichi-ctrl.js"></script>
+       
+       <!- Hasta aqui ""TODO"" igual->
+       
+       
+        
+    </head>
+    <body >
+        <div ng-controller="Pichichi-ctrl">
+            <h2>Pichichi</h2>
+            <table class="table">
+                <thead>
+                    <tr><h4>APIKEY: adrdavand</h4></tr>
+                    <tr>
+                        <th>Introduce APIKEY<input class="form-control" ng-model="apikey"></th>
+                         <th class="text-center"><button class="btn-primary" ng-click="getData()">GET DATA</button></th>
+                    </tr>
+                    <tr>
+                        <th class="text-center"><button class="btn-danger" ng-click="deleteAllStats()">BORRAR TODO</button></th>
+                        <th class="text-center"><button class="btn-primary" ng-click="loadInitialData()">INICIALIZA</button></th>
+                    </tr>
+                    </thead> 
+                     <table class="table">
+                    <thead>
+                        <tr>
+                        <th>Nationality</th>
+                        <th>Season</th>
+                        <th>Name</th>
+                        <th>Team</th>
+                        <th>Goal</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                
+                
+                <tbody>
+                    <tr>
+                        <td><input class="form-control" ng.model="newPichichi.nationality"/></td>
+                        <td><input class="form-control" ng.model="newPichichi.season"/></td>
+                        <td><input class="form-control" ng.model="newPichichi.name"/></td>
+                        <td><input class="form-control" ng.model="newPichichi.team"/></td>
+                        <td><input class="form-control" ng.model="newPichichi.goal"/></td>
+                        <td><button class = "button btn-primary" ng-click="addPichichi()">Add</button></td>
+
+                    </tr>
+                    
+                    <tr>
+                        <td><input class="form-control" ng-model="newPichichi.nationality"></td>
+                        <td><input class="form-control" ng-model="newPichichi.season"></td>
+                        <td><input class="form-control" ng-model="newPichichi.name" ></td>
+                        <td><input class="form-control" ng-model="newPichichi.team" ></td>
+                        <td><input class="form-control" ng.model="newPichichi.goal"/></td>
+                        <td ><button class="btn-warning" ng-click="editStats()">EDITAR PICHICHI</button></td>
+                    </tr>
+                   
+                    
+                    <tr>
+                        <td><input class="form-control" ng-model="newPichichi.season"></td>
+                        <td><input class="form-control" ng-model="newPichichi.name" ></td>
+                        <td ><button class="btn-warning" ng-click="searches()">BUSCAR</button></td>
+                    </tr>
+                    
+                    <tr ng-repeat="pichichi in lfppichichitrophy"> 
+                        <td>{{pichichi.nationality}}</td>
+                        <td>{{pichichi.season}}</td>
+                        <td>{{pichichi.name}}</td>
+                        <td>{{pichichi.team}}</td>
+                        <td>{{pichichi.goal}}</td>
+                        <td><button class = "button btn-danger" ng-click="deletePichichi(pichichi.season)">Delete</button></td>
+                    </tr>
+                    
+                    
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

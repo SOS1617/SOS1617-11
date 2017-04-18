@@ -12,7 +12,7 @@ angular
             $http.get("api/v1/lfppichichitrophy"+"/loadInitialData?apikey="+$scope.apikey)
             .then(function(){
                 console.log("Load initial data: OK");
-                refresh();
+                //refresh();
             })
         }
     /* $scope.loadInitialData= function(){

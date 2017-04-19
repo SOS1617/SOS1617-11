@@ -106,11 +106,10 @@ angular
 
     //ELIMINAR UN PICHICHI
      $scope.deletePichichi = function (season){
-         console.log("Eliminando el pichichi de la temporada" + season);
         $http
-            .delete($scope.url+"/" + $scope.newPichichi.season +"/?apikey="+ $scope.apikey)
+            .delete($scope.url+"/" + season +"/?apikey="+ $scope.apikey)
             .then(function (response){
-                console.log("Pichichi de le temporada:" + $scope.newPichichi.season + "eliminado");
+                console.log("Pichichi de le temporada:" + season + "eliminado");
                 refresh();
         });
     }

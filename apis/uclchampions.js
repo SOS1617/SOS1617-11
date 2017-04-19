@@ -236,7 +236,7 @@ app.put(BASE_API_PATH + "/uclchampions", function (request, response) {
 
 
 //PUT over a single resource
-app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
+/*app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     var updatedUclchampion = request.body;
     var year = request.params.year;
@@ -265,21 +265,61 @@ app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
                         db.update({year: year}, updatedUclchampion);
                         console.log("INFO: Modifying uclchampion with year " + year + " with data " + JSON.stringify(updatedUclchampion, 2, null));
                         response.send(updatedUclchampion); // return the updated uclchampion
-                    } /*else {
+                    }else {
                         console.log("WARNING: There are not any uclchampion with year " + year);
 <<<<<<< HEAD
                         response.sendStatus(400); // not found
                     }
 =======
                         response.sendStatus(404); // not found
-                    }*/
+                    }
 >>>>>>> 6f8d3f14520386e219e99a6ad14a4a9a881ef94a
                 }
             });
         }
     }
 });
+*/
 
+
+app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
+    if (!checkApiKeyFunction(request, response)) return;
+    var updateduclchampions = request.body;
+    var year = request.params.year;
+    if (!updateduclchampions) {
+        console.log("WARNING: New PUT request to /uclchampions/ without uclchampions, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New PUT request to /uclchampions/" + year + " with data " + JSON.stringify(updateduclchampions, 2, null));
+        if(updateduclchampions.year!=year){
+            console.log("WARNING: New PUT request to /lfppichichitrophy/ with diferent season, sending 400...");
+            response.sendStatus(400); // bad request
+        }
+        if (!updateduclchampions.year || !updateduclchampions.champion || !updateduclchampions.runnerup || !updateduclchampions.stadium || !updateduclchampions.city) {
+            console.log("WARNING: The uclchampion " + JSON.stringify(updateduclchampions, 2, null) + " is not well-formed, sending 422...");
+            response.sendStatus(422); // unprocessable entity
+        } else {
+            db.find({}).toArray(function (err, uclchampions) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500); // internal server error
+                } else {
+                    var uclchamppionsBeforeInsertion = uclchampions.filter((uclchampions) => {
+                        return (uclchampions.year.localeCompare(updateduclchampions.season, "en", {'sensitivity': 'base'}) === 0);
+                    });
+                    if (uclchamppionsBeforeInsertion.length > 0) {
+                        db.update({year: year}, updateduclchampions);
+                        console.log("INFO: Modifying lfppichichitrophy with season " + year + " with data " + JSON.stringify(updateduclchampions, 2, null));
+                        response.send(updateduclchampions); // return the updated lfppichichitrophy
+                    } else {
+                        console.log("WARNING: There are not any lfppichichitrophy with season " + year);
+                        response.sendStatus(404); // not found
+                    }
+                }
+            });
+        }
+    }
+});
 
 
 

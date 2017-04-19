@@ -265,10 +265,10 @@ app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
                         db.update({year: year}, updatedUclchampion);
                         console.log("INFO: Modifying uclchampion with year " + year + " with data " + JSON.stringify(updatedUclchampion, 2, null));
                         response.send(updatedUclchampion); // return the updated uclchampion
-                    } else {
+                    } /*else {
                         console.log("WARNING: There are not any uclchampion with year " + year);
                         response.sendStatus(404); // not found
-                    }
+                    }*/
                 }
             });
         }

@@ -87,7 +87,7 @@ angular
         
         //MODIFICAR UN PICHICHI
         $scope.editaPichichi = function(){
-            $http.put($scope.url +"/" + $scope.newPichichi.pichichi +"?apikey=" + $scope.apikey,$scope.newPichichi)
+            $http.put($scope.url +"/" + $scope.newPichichi.season +"?apikey=" + $scope.apikey,$scope.newPichichi)
             .then(function(response){
                 console.log("Pichichi modificadao correctamente");
                 refresh();

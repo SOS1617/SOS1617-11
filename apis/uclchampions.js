@@ -102,8 +102,8 @@ app.get(BASE_API_PATH + "/uclchampions", function (request, response) {
             }
          
         if (filtered.length > 0) {
-            var pag = paginate(offset, limit, filtered, response);
-            response.send(pag);
+           elementos = paginate(offset, limit, filtered, response);
+            response.send(elementos);
           }
         else {
            console.log("WARNING: There are not any contact with this properties");

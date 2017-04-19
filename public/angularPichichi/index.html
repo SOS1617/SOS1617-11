@@ -82,12 +82,13 @@
                 
                 
                 <tbody>
+                
                     <tr>
-                        <td class="info"><input class="form-control" ng.model="newPichichi.nationality"/></td>
-                        <td class="info"><input class="form-control" ng.model="newPichichi.season"/></td>
-                        <td class="info"><input class="form-control" ng.model="newPichichi.name"/></td>
-                        <td class="info"><input class="form-control" ng.model="newPichichi.team"/></td>
-                        <td class="info"><input class="form-control" ng.model="newPichichi.goal"/></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.nationality"></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.season"></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.name"></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.team"></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.goal"></td>
                         <td class="info"><button class = "button btn-primary" ng-click="addPichichi()">Add</button></td>
 
                     </tr>
@@ -97,7 +98,7 @@
                         <td class="info"><input class="form-control" ng-model="newPichichi.season"></td>
                         <td class="info"><input class="form-control" ng-model="newPichichi.name" ></td>
                         <td class="info"><input class="form-control" ng-model="newPichichi.team" ></td>
-                        <td class="info"><input class="form-control" ng.model="newPichichi.goal"/></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.goal"></td>
                         <td class="info" ><button class="btn btn-warning" ng-click="editaPichichi()">EDITAR PICHICHI</button></td>
                     </tr>
                    
@@ -112,10 +113,6 @@
                         <td>{{pichichi.goal}}</td>
                         <td><button class = "button btn-danger" ng-click="deletePichichi(pichichi.season)">Delete</button></td>
                     </tr>
-                    
-                    
-                    
-                    
                 </tbody>
             </table>
         </div>

@@ -58,8 +58,10 @@ angular
     
     //AÑADIR UN NUEVO PICHICHI
     $scope.addPichichi = function (){
+        var datainput = $scope.newlfppichichitrophy;
+        console.log(datainput);
         $http
-            .post($scope.url+"?apikey="+ $scope.apikey,$scope.newlfppichichitrophy)
+            .post($scope.url+"?apikey="+ $scope.apikey,datainput)
             .then(function (response){
                 console.log("Contact added");
                 refresh();
@@ -104,10 +106,11 @@ angular
             $http
                 .get($scope.url+"?apikey="+$scope.apikey+"&season="+$scope.newlfppichichitrophy.season)
                 .then(function(response){
-                    console.log("El pichichi de la temporada: " + $scope.newlfppichichitrophy.season + "es" + $scope.newlfppichichitrophy.name);
+                    console.log("Muestra el pichichi de la temporada: " + $scope.newlfppichichitrophy.season);
                     $scope.data = JSON.stringify(response.data, null, 2);
                     $scope.lfppichichitrophy = response.data; 
                 });
         }
+        
            
     }]);

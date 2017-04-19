@@ -59,7 +59,7 @@ angular
     //AÑADIR UN NUEVO PICHICHI
     $scope.addPichichi = function (){
         $http
-            .post($scope.url+"?apikey="+ $scope.apikey,$scope.newPichichi)
+            .post($scope.url+"?apikey="+ $scope.apikey,$scope.newlfppichichitrophy)
             .then(function (response){
                 console.log("Contact added");
                 refresh();
@@ -70,7 +70,7 @@ angular
    
         //MODIFICAR UN PICHICHI
         $scope.editaPichichi = function(){
-            $http.put($scope.url +"/" + $scope.newPichichi.season +"?apikey=" + $scope.apikey,$scope.newPichichi)
+            $http.put($scope.url +"/" + $scope.newlfppichichitrophy.season +"?apikey=" + $scope.apikey,$scope.newlfppichichitrophy)
             .then(function(response){
                 console.log("Pichichi modificadao correctamente");
                 refresh();
@@ -102,9 +102,9 @@ angular
         //BÚSQUEDA
         $scope.search = function(){
             $http
-                .get($scope.url+"?apikey="+$scope.apikey+"&season="+$scope.newPichichi.season)
+                .get($scope.url+"?apikey="+$scope.apikey+"&season="+$scope.newlfppichichitrophy.season)
                 .then(function(response){
-                    console.log("El pichichi de la temporada: " + $scope.newPichichi.season + "es" + $scope.newPichichi.name);
+                    console.log("El pichichi de la temporada: " + $scope.newlfppichichitrophy.season + "es" + $scope.newlfppichichitrophy.name);
                     $scope.data = JSON.stringify(response.data, null, 2);
                     $scope.lfppichichitrophy = response.data; 
                 });

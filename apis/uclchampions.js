@@ -267,7 +267,7 @@ app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
                         response.send(updatedUclchampion); // return the updated uclchampion
                     } else {
                         console.log("WARNING: There are not any uclchampion with year " + year);
-                        response.sendStatus(404); // not found
+                        response.sendStatus(400); // not found
                     }
                 }
             });

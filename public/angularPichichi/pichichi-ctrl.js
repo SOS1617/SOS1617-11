@@ -51,7 +51,6 @@ angular
                     $scope.wages = response.data;
                     console.log( "Showing data with limit and offset "  );
                     refresh()
-
                 });
             
         } ;

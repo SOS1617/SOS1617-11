@@ -34,7 +34,7 @@ if(checkApiKeyFunction(request,response)==true){
 
 
 // GET a collection
-/*app.get(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
+app.get(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
    if (!checkApiKeyFunction(request, response)) return;
    //if(checkApiKeyFunction(request, response) == true){
        
@@ -119,12 +119,12 @@ var insertar = function(elementos,array,limit,offset){
         i++;
     }
     return elementos;
-}*/
+}
 
 // GET a single resource
 
 
-app.get(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
+/*app.get(BASE_API_PATH + "/lfppichichitrophy", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     console.log("INFO: New GET request to /lfppichichitrophy");
     
@@ -222,7 +222,7 @@ var buscador = function(base, conjuntoauxiliar, desde, hasta) {
 
     return conjuntoauxiliar;
 
-};
+};*/
 
 
 app.get(BASE_API_PATH + "/lfppichichitrophy/:season", function (request, response) {

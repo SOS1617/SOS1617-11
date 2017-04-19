@@ -50,6 +50,7 @@ angular
                     $scope.data = JSON.stringify(response.data, null, 2); 
                     $scope.wages = response.data;
                     console.log( "Showing data with limit and offset "  );
+                    refresh()
 
                 });
             

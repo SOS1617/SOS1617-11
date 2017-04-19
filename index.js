@@ -18,7 +18,7 @@ var mdbURL = "mongodb://test:test@ds139480.mlab.com:39480/sandboxdbd";
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
-
+var publicFolder = path.join(__dirname, 'public');
 
 //BASE DE DATOS ADRIAN 
 var db;
@@ -77,12 +77,12 @@ var app = express();
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
-app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/", express.static(publicFolder));
 app.use(BASE_API_PATH + "/tests", express.static(path.join(__dirname , "public/tests.html")));
 
 
 ////////////////////////////URL HTMLS///////////////////////
-var publicFolder = path.join(__dirname, 'public');
+
 
 app.get(BASE_API_PATH+"/pichichi-angular", function(request, response){
     response.sendfile(publicFolder + "/angularPichichi/index.html");

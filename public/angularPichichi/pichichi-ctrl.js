@@ -4,15 +4,17 @@ angular
     .module("PichichiManagerApp")
     .controller("Pichichi-ctrl", ["$scope", "$http", function ($scope, $http){
     
+     $scope.url = "/api/v1/lfppichichitrophy";
+    
     console.log("Controller initialized (splited right)");
     
     
     //CARGAR DATOS
        $scope.loadInitialData= function(){
-            $http.get("/lfppichichitrophy"+"/loadInitialData?apikey="+$scope.apikey)
+            $http.get($scope.url+"/loadInitialData?apikey="+$scope.apikey)
             .then(function(){
                 console.log("Load initial data: OK");
-                //refresh();
+                refresh();
             })
         }
     /* $scope.loadInitialData= function(){
@@ -37,7 +39,7 @@ angular
     
     function refresh(){
          $http
-            .get("/lfppichichitrophy"+"?apikey="+ $scope.apikey)
+            .get($scope.url+"?apikey="+ $scope.apikey)
             /*.get("api/v1/lfppichichitrophy")*/
             .then(function (response){
                 $scope.data = JSON.stringify(response.data, null, 2);
@@ -47,16 +49,31 @@ angular
             });
     }
     
+    //GET
+     $scope.getData = function(){
+            $http
+            .get($scope.url+"?apikey="+ $scope.apikey)
+            .then(function(response){
+               $scope.lfppichichitrophy= response.data;
+                console.log( "Showing data " );
+
+                });
+                
+              } 
+    
     
     //AÑADIR UN NUEVO PICHICHI
     $scope.addPichichi = function (){
         $http
-            .post("/api/v1/lfppichichitrophy" +"?apikey="+ $scope.apikey,$scope.newPichichi)
+            .post($scope.url +"?apikey="+ $scope.apikey,$scope.newPichichi)
             .then(function (response){
                 console.log("Contact added");
                 refresh();
         });
     }
+    
+    
+       
     
    /* $scope.addPichichi = function (){
         $http
@@ -70,7 +87,7 @@ angular
         
         //MODIFICAR UN PICHICHI
         $scope.editaPichichi = function(){
-            $http.put("/api/v1/lfppichichitrophy" +"/" + $scope.newPichichi.pichichi +"?apikey=" + $scope.apikey,$scope.newPichichi)
+            $http.put($scope.url +"/" + $scope.newPichichi.pichichi +"?apikey=" + $scope.apikey,$scope.newPichichi)
             .then(function(response){
                 console.log("Pichichi modificadao correctamente");
                 refresh();
@@ -91,9 +108,9 @@ angular
      $scope.deletePichichi = function (season){
          console.log("Eliminando el pichichi de la temporada" + season);
         $http
-            .delete("/api/v1/lfppichichitrophy"+"/" + season +"/?apikey="+ $scope.apikey)
+            .delete($scope.url+"/" + $scope.newPichichi.season +"/?apikey="+ $scope.apikey)
             .then(function (response){
-                console.log("Pichichi de le temporada:" + season + "eliminado");
+                console.log("Pichichi de le temporada:" + $scope.newPichichi.season + "eliminado");
                 refresh();
         });
     }
@@ -111,7 +128,7 @@ angular
     //ELIMINAR LA LISTA
     $scope.deleteLista = function(){
             $http
-                .delete("/api/v1/lfppichichitrophy"+"?apikey="+ $scope.apikey)
+                .delete($scope.url+"?apikey="+ $scope.apikey)
                 .then(function(response){
                     console.log("LISTA VACÍA");
                     refresh();
@@ -132,13 +149,25 @@ angular
         //BÚSQUEDA
         $scope.search = function(){
             $http
-                .get("/api/v1/lfppichichitrophy"+"?apikey="+$scope.apikey+"&season="+$scope.newPichichi.season)
+                .get($scope.url+"?apikey="+$scope.apikey+"&season="+$scope.newPichichi.season)
                 .then(function(response){
                     console.log("El pichichi de la temporada: " + $scope.newPichichi.season + "es" + $scope.newPichichi.name);
                     $scope.data = JSON.stringify(response.data, null, 2);
                     $scope.lfppichichitrophy = response.data; 
                 });
         }
+            //BUSQUEDA DE UN RANGO
+          /*$scope.search = function(){
+            $http
+                .get($scope.url+"?apikey="+$scope.apikey+"&from="+$scope.newPichichi.from+"&to="+$scope.newPichichi.to)
+                .then(function(response){
+                    console.log("El pichichi de la temporada: " + $scope.newPichichi.season + "es" + $scope.newPichichi.name);
+                    $scope.data = JSON.stringify(response.data, null, 2);
+                    $scope.lfppichichitrophy = response.data; 
+                });
+        }*/
+        
+        
         /*
         
         $scope.search = function(){

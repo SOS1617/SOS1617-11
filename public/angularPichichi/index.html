@@ -26,25 +26,26 @@
        
         
     </head>
-    <body style="width:1100px; margin-left:250px; border: 5px dotted blue>
+    <body >
         <div ng-controller="Pichichi-ctrl">
             <h2>Pichichi</h2>
-            <table class="table table-striped">
+            <table class="table">
                 <thead>
                     <tr><h4>APIKEY: adrdavand</h4></tr>
                     <tr>
                         <th>Introduce APIKEY<input class="form-control" ng-model="apikey"></th>
                         <th class="text-center"><button class="btn-primary" ng-click="getData()">GET DATA</button></th>
                         <th class="text-center"><button class="btn-primary" ng-click="loadInitialData()">INICIALIZA</button></th>
+                        <th class="text-center"><button class="btn-danger" ng-click="deleteLista()">BORRAR TODO</button></th>
                     </tr>
                     </thead> 
                     
                      <tr>
+                         <tr><h4>Busqueda por temporada</h4></tr>
                         <td><input class="form-control" ng-model="newPichichi.season"></td>
-                        <td ><button class="btn-primary" ng-click="search()">BUSCAR</button></td>
-                        <th class="text-center"><button class="btn-danger" ng-click="deleteLista()">BORRAR TODO</button></th>
+                        <td ><button class="btn-succes" ng-click="search()">BUSCAR</button></td>
+                        
                     </tr>
-                    
                      <table class="table">
                     <thead>
                         <tr>
@@ -60,15 +61,15 @@
                 
                 <tbody>
                     <tr>
-                        <td><input class="form-control" ng.model="newPichichi.nationality"/></td>
-                        <td><input class="form-control" ng.model="newPichichi.season"/></td>
-                        <td><input class="form-control" ng.model="newPichichi.name"/></td>
-                        <td><input class="form-control" ng.model="newPichichi.team"/></td>
-                        <td><input class="form-control" ng.model="newPichichi.goal"/></td>
-                        <td><button class = "button btn-primary" ng-click="addPichichi()">Add</button></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.nationality"/></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.season"/></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.name"/></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.team"/></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.goal"/></td>
+                        <td class="info"><button class = "button btn-primary" ng-click="addPichichi()">Add</button></td>
 
                     </tr>
-                    
+                
                     <tr>
                         <td><input class="form-control" ng-model="newPichichi.nationality"></td>
                         <td><input class="form-control" ng-model="newPichichi.season"></td>

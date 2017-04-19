@@ -38,13 +38,22 @@
                         <th class="text-center"><button class="btn-primary" ng-click="loadInitialData()">INICIALIZA</button></th>
                         
                     </tr>
+                    
+                    <tr>
+
+                        <th class="success">Introduce LIMIT<input class="form-control" ng-model="limit" placeholder="Limit"></th>
+                        <th class="success">Introduce OFFSET<input class="form-control" ng-model="offset" placeholder="Offset"></th>
+                        <th class="success"><button class="btn btn-success" ng-click="getPaginacion()">Get</button></th>
+                    </tr>
+                    
+                    
                 </thead> 
                     <table class="table">
                     <thead>
                         <tr><h4>Búsqueda por temporada</h4></tr>
                     <tr>
-                        <td><input class="form-control" ng-model="newPichichi.season"></td>
-                        <td ><button class="btn-succes" ng-click="search()">BUSCAR</button></td>
+                        <th class="success"><input class="form-control" ng-model="newPichichi.season"></th>
+                        <th class="success"><button class="btn btn-succes" ng-click="search()">BUSCAR</button></th>
                         
                     </tr>
                     </thead> 
@@ -84,12 +93,12 @@
                     </tr>
                 
                     <tr>
-                        <td><input class="form-control" ng-model="newPichichi.nationality"></td>
-                        <td><input class="form-control" ng-model="newPichichi.season"></td>
-                        <td><input class="form-control" ng-model="newPichichi.name" ></td>
-                        <td><input class="form-control" ng-model="newPichichi.team" ></td>
-                        <td><input class="form-control" ng.model="newPichichi.goal"/></td>
-                        <td  ><button class="btn-warning" ng-click="editaPichichi()">EDITAR PICHICHI</button></td>
+                        <td class="info"><input class="form-control" ng-model="newPichichi.nationality"></td>
+                        <td class="info"><input class="form-control" ng-model="newPichichi.season"></td>
+                        <td class="info"><input class="form-control" ng-model="newPichichi.name" ></td>
+                        <td class="info"><input class="form-control" ng-model="newPichichi.team" ></td>
+                        <td class="info"><input class="form-control" ng.model="newPichichi.goal"/></td>
+                        <td class="info" ><button class="btn btn-warning" ng-click="editaPichichi()">EDITAR PICHICHI</button></td>
                     </tr>
                    
                     

@@ -213,12 +213,12 @@ app.post(BASE_API_PATH + "/uclchampions", function (request, response) {
         console.log("WARNING: New POST request to /uclchampions/ without uclchampions, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New POST request to /lfppichichitrophy with body: " + JSON.stringify(newlfppichichitrophy, 2, null));
+        console.log("INFO: New POST request to /lfppichichitrophy with body: " + JSON.stringify(newuclchampions, 2, null));
         if (!newuclchampions.year || !newuclchampions.champion || !newuclchampions.runnerup || !newuclchampions.stadium || !newuclchampions.city) {
             console.log("WARNING: The newuclchampions " + JSON.stringify(newuclchampions, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            db.find({}).toArray(function (err, lfppichichitrophy) {
+            db.find({}).toArray(function (err, uclchampions) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error

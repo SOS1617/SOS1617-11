@@ -144,7 +144,7 @@ app.get(BASE_API_PATH + "/uclchampions", function (request, response) {
             if ((year == undefined || param.year == year) && (champion == undefined || param.champion == champion) && 
                 (runnerup == undefined || param.runnerup == runnerup) && (stadium == undefined || param.stadium == stadium) && 
                 (city == undefined || param.city == city)) {
-            return param;
+                return param;
             }
         });
         }
@@ -314,7 +314,7 @@ app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
     } else {
         console.log("INFO: New PUT request to /uclchampions/" + year + " with data " + JSON.stringify(updateduclchampions, 2, null));
         if(updateduclchampions.year!=year){
-            console.log("WARNING: New PUT request to /lfppichichitrophy/ with diferent season, sending 400...");
+            console.log("WARNING: New PUT request to /uclchampions/ with diferent year, sending 400...");
             response.sendStatus(400); // bad request
         }
         if (!updateduclchampions.year || !updateduclchampions.champion || !updateduclchampions.runnerup || !updateduclchampions.stadium || !updateduclchampions.city) {

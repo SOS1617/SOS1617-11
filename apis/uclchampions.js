@@ -330,7 +330,6 @@ app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
                         return (uclchampions.year.localeCompare(updateduclchampions.year, "en", {'sensitivity': 'base'}) === 0);
                     });
                     if (uclchampionsBeforeInsertion.length > 0) {
-<<<<<<< HEAD
                         db.update({year: year}, updateduclchampions);
                         console.log("INFO: Modifying uclchampions with year " + year + " with data " + JSON.stringify(updateduclchampions, 2, null));
                         response.send(updateduclchampions); // return the updated lfppichichitrophy
@@ -338,17 +337,6 @@ app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
                         console.log("WARNING: There are not any uclchampions with year " + year);
                         response.sendStatus(404); // not found
                     }
-=======
-                        db.update({year: year}, updatedUclchampion);
-                        console.log("INFO: Modifying uclchampion with year " + year + " with data " + JSON.stringify(updatedUclchampion, 2, null));
-                        response.send(updatedUclchampion); // return the updated uclchampion
-                    }else {
-                        console.log("WARNING: There are not any uclchampion with year " + year);
-
-                        response.sendStatus(404); // not found
-                    }
-                    
->>>>>>> 7e111bb78ec20bd76f522809103b124830ea48f2
                 }
             });
         }

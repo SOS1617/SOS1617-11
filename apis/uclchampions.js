@@ -315,7 +315,8 @@ app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
         console.log("INFO: New PUT request to /uclchampions/" + year + " with data " + JSON.stringify(updateduclchampions, 2, null));
         if(updateduclchampions.year!=year){
             console.log("WARNING: New PUT request to /uclchampions/ with diferent year, sending 400...");
-            response.sendStatus(400); // bad request
+            response.sendStatus(400);
+            return;// bad request
         }
         if (!updateduclchampions.year || !updateduclchampions.champion || !updateduclchampions.runnerup || !updateduclchampions.stadium || !updateduclchampions.city) {
             console.log("WARNING: The uclchampions " + JSON.stringify(updateduclchampions, 2, null) + " is not well-formed, sending 422...");

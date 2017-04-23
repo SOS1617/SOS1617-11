@@ -2,7 +2,7 @@
 
 angular
     .module("UclchampionsManagerApp")
-    .controller("uclchampions-ctrl", ["$scope", "$http", function ($scope, $http){
+    .controller("Uclchampion-ctrl", ["$scope", "$http", function ($scope, $http){
     
      $scope.url = "/api/v1/uclchampions";
     
@@ -57,7 +57,7 @@ angular
         } ;
     
     
-    //AÑADIR UN NUEVO PICHICHI
+    //AÑADIR UN NUEVO CAMPEON
     $scope.adduclchampion = function (){
         var datainput = $scope.newuclchampions;
         console.log(datainput);
@@ -71,7 +71,7 @@ angular
     
     
    
-        //MODIFICAR UN PICHICHI
+        //MODIFICAR UN CAMPEO
         $scope.editauclchampion = function(){
             $http.put($scope.url +"/" + $scope.newuclchampions.year +"?apikey=" + $scope.apikey,$scope.newuclchampions)
             .then(function(response){

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="PichichiManagerApp">
+<html ng-app="UclchampionsManagerApp">
     <head>
         <title>My app</title>
         <link 
@@ -20,15 +20,15 @@
             type="text/javascript" 
             src="/bower_components/angular/angular.min.js"></script>
         
-        <script type="text/javascript" src="/angularPichichi/pichichi-manager.js"></script>
-        <script type="text/javascript" src="/angularPichichi/pichichi-ctrl.js"></script>
+        <script type="text/javascript" src="/angularUclchampions/uclchampions-manager.js"></script>
+        <script type="text/javascript" src="/angularPichichi/uclchampions-ctrl.js"></script>
        
        
         
     </head>
     <body >
-        <div ng-controller="Pichichi-ctrl">
-            <h2>Pichichi</h2>
+        <div ng-controller="uclchampions-ctrl">
+            <h2>UCL CHAMPIONS</h2>
             <table class="table">
                 <thead>
                     <tr><h4>APIKEY: adrdavand</h4></tr>
@@ -50,9 +50,9 @@
                 </thead> 
                     <table class="table">
                     <thead>
-                        <tr><h4>Búsqueda por temporada</h4></tr>
+                        <tr><h4>Búsqueda por año</h4></tr>
                     <tr>
-                        <th class="success"><input class="form-control" ng-model="newlfppichichitrophy.season"></th>
+                        <th class="success"><input class="form-control" ng-model="newuclchampions.year"></th>
                         <th class="success"><button class="btn btn-succes" ng-click="search()">BUSCAR</button></th>
                         
                     </tr>
@@ -71,11 +71,11 @@
                     <table class="table">
                     <thead>
                         <tr>
-                        <th>Nationality</th>
-                        <th>Season</th>
-                        <th>Name</th>
-                        <th>Team</th>
-                        <th>Goal</th>
+                        <th>Year</th>
+                        <th>Champion</th>
+                        <th>Runnerup</th>
+                        <th>Stadium</th>
+                        <th>City</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -84,34 +84,34 @@
                 <tbody>
                 
                     <tr>
-                        <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.nationality" placeholder="Nationality"></td>
-                        <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.season" placeholder="Season"></td>
-                        <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.name" placeholder="Name"></td>
-                        <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.team" placeholder="Team"></td>
-                        <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.goal" placeholder="Goal"></td>
-                        <td class="info"><button class = "button btn-primary" ng-click="addPichichi()">Add</button></td>
+                        <td class="info"><input class="form-control" ng-model="newuclchampions.year" placeholder="Year"></td>
+                        <td class="info"><input class="form-control" ng-model="newuclchampions.champion" placeholder="Champion"></td>
+                        <td class="info"><input class="form-control" ng-model="newuclchampions.runnerup" placeholder="Runnerup"></td>
+                        <td class="info"><input class="form-control" ng-model="newuclchampions.stadium" placeholder="Stadium"></td>
+                        <td class="info"><input class="form-control" ng-model="newuclchampions.city" placeholder="City"></td>
+                        <td class="info"><button class = "button btn-primary" ng-click="adduclchampion()">Add</button></td>
 
                     </tr>
                 
                     <tr>
-                        <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.nationality"></td>
-                        <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.season"></td>
-                        <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.name" ></td>
-                        <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.team" ></td>
-                        <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.goal"></td>
-                        <td class="info" ><button class="btn btn-warning" ng-click="editaPichichi()">EDITAR PICHICHI</button></td>
+                        <td class="info"><input class="form-control" ng-model="newuclchampions.year"></td>
+                        <td class="info"><input class="form-control" ng-model="newuclchampions.champion"></td>
+                        <td class="info"><input class="form-control" ng-model="newuclchampions.runnerup" ></td>
+                        <td class="info"><input class="form-control" ng-model="newuclchampions.stadium" ></td>
+                        <td class="info"><input class="form-control" ng-model="newuclchampions.city"></td>
+                        <td class="info" ><button class="btn btn-warning" ng-click="editauclchampion()">EDITAR CHAMPION</button></td>
                     </tr>
                    
                     
                    
                     
-                    <tr ng-repeat="pichichi in lfppichichitrophy"> 
-                        <td>{{pichichi.nationality}}</td>
-                        <td>{{pichichi.season}}</td>
-                        <td>{{pichichi.name}}</td>
-                        <td>{{pichichi.team}}</td>
-                        <td>{{pichichi.goal}}</td>
-                        <td><button class = "button btn-danger" ng-click="deletePichichi(pichichi.season)">Delete</button></td>
+                    <tr ng-repeat="champion in uclchampions"> 
+                        <td>{{champion.year}}</td>
+                        <td>{{champion.champion}}</td>
+                        <td>{{champion.runnerup}}</td>
+                        <td>{{champion.stadium}}</td>
+                        <td>{{champion.city}}</td>
+                        <td><button class = "button btn-danger" ng-click="deleteuclchampion(champion.year)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>

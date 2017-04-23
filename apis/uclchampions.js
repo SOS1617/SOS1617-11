@@ -335,7 +335,8 @@ app.put(BASE_API_PATH + "/uclchampions/:year", function (request, response) {
                         response.send(updateduclchampions); // return the updated lfppichichitrophy
                     } else {
                         console.log("WARNING: There are not any uclchampions with year " + year);
-                        response.sendStatus(404); // not found
+                        response.sendStatus(404);
+                        return;// not found
                     }
                 }
             });

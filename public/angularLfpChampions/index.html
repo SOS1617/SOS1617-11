@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html ng-app="LfpChampionManagerApp">
+    <head>
+        <title>My app</title>
+        <link 
+            rel="stylesheet" 
+            href="/bower_components/bootstrap/dist/css/bootstrap.min.css" 
+            type="text/css" />
+        <link 
+            rel="stylesheet" 
+            href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" 
+            type="text/css" />
+        <script 
+            type="text/javascript" 
+            src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <script 
+            type="text/javascript" 
+            src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script 
+            type="text/javascript" 
+            src="/bower_components/angular/angular.min.js"></script>
+        
+        <script type="text/javascript" src="/angularLfpChampions/lfpchampion-manager.js"></script>
+        <script type="text/javascript" src="/angularLfpChampions/lfpchampion-ctrl.js"></script>
+       
+       
+        
+    </head>
+    <body >
+        <div ng-controller="LfpChampionsCtrl">
+            <h2>LfpChampions</h2>
+            <table class="table">
+                <thead>
+                    <tr><h4>APIKEY: adrdavand</h4></tr>
+                    <tr>
+                        <th>Introduce APIKEY<input class="form-control" ng-model="apikey"></th>
+                        <th class="text-center"><button class="btn-primary" ng-click="refresh()">GET DATA</button></th>
+                        <th class="text-center"><button class="btn-primary" ng-click="loadInitialData()">INICIALIZA</button></th>
+                    </tr>
+                    
+                    <tr>
+
+                        <th class="success">Introduce LIMIT<input class="form-control" ng-model="limit" placeholder="Limit"></th>
+                        <th class="success">Introduce OFFSET<input class="form-control" ng-model="offset" placeholder="Offset"></th>
+                        <th class="success"><button class="btn btn-success" ng-click="getPaginacion()">Get</button></th>
+                    </tr>
+                    </thead> 
+                    
+                        <table class="table">
+                    <thead>
+                        <tr><h4>Búsqueda por temporada</h4></tr>
+                    <tr>
+                        <th class="success"><input class="form-control" ng-model="newlfppichichitrophy.season"></th>
+                        <th class="success"><button class="btn btn-succes" ng-click="search()">BUSCAR</button></th>
+                        
+                    </tr>
+                    </thead> 
+                    </table>
+                    
+                    <table class="table" >
+                        <thead>
+                            <tr><h4>Vaciar la base de datos:</h4></tr>
+                           <button class="btn-danger" ng-click="deleteLista()">BORRAR TODO</button>
+                        </thead>
+                    </table>
+                    
+                    
+                     <table class="table">
+                    <thead>
+                        <tr>
+                        <th>Champion</th>
+                        <th>Championcity</th>
+                        <th>Season</th>
+                        <th>Runnerup</th>
+                    </tr>
+                </thead>
+                
+                
+                <tbody>
+                    <tr>
+                        <td><input class="form-control" ng.model="newLfpChampion.champion"/></td>
+                        <td><input class="form-control" ng.model="newPichichi.championcity"/></td>
+                        <td><input class="form-control" ng.model="newPichichi.season"/></td>
+                        <td><input class="form-control" ng.model="newPichichi.runnerup"/></td>
+                        <td><button class = "button btn-primary" ng-click="addLfpChampion()">Add</button></td>
+
+                    </tr>
+                    
+                    <tr>
+                        <td><input class="form-control" ng-model="newLfpChampion.champion"></td>
+                        <td><input class="form-control" ng-model="newPichichi.championcity"></td>
+                        <td><input class="form-control" ng-model="newPichichi.season" ></td>
+                        <td><input class="form-control" ng-model="newPichichi.runnerup" ></td>
+                        <td ><button class="btn-warning" ng-click="editaLfpChampion()">EDITAR LFPCHAMPION</button></td>
+                    </tr>
+                   
+                    
+                   
+                    
+                    <tr ng-repeat="lfpchampion in lfpchampions"> 
+                        <td>{{lfpchampion.champion}}</td>
+                        <td>{{lfpchampion.championcity}}</td>
+                        <td>{{lfpchampion.season}}</td>
+                        <td>{{lfpchampion.runnerup}}</td>
+                        <td><button class = "button btn-danger" ng-click="deleteLfpChampion(lfpchampion.season)">Delete</button></td>
+                    </tr>
+                    
+                    
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

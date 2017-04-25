@@ -72,14 +72,14 @@ angular
     
    
         //MODIFICAR UN PICHICHI
-        $scope.editaPichichi = function(){
+        /*$scope.editaPichichi = function(){
             $http.put($scope.url +"/" + $scope.newlfppichichitrophy.season +"?apikey=" + $scope.apikey,$scope.newlfppichichitrophy)
             .then(function(response){
                 console.log("Pichichi modificadao correctamente");
                 refresh();
             });
             
-        }
+        }*/
      
     //ELIMINAR UN PICHICHI
      $scope.deletePichichi = function (season){

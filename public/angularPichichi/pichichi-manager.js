@@ -1,12 +1,12 @@
   angular.module("PichichiManagerApp", ["ngRoute"]).config(function ($routeProvider){
     
     $routeProvider
-    .when("/pichichi-angular", {
+    .when("/", {
       
       templateUrl : "inicio.html",
       controller : "Pichichi-ctrl"
     })
-    .when("/pichichi-angular/update", {
+    .when("/update", {
       templateUrl : "edit.html",
       controller : "EditCtrl"
     });

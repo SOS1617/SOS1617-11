@@ -89,6 +89,7 @@ app.get(BASE_API_PATH+"/pichichi-angular", function(request, response){
 
 });
 
+
 app.get(BASE_API_PATH+"/uclchampions-angular", function(request, response){
     response.sendfile(publicFolder + "/angularUclchampions/list.html");
 

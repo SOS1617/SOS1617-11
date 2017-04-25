@@ -1,4 +1,4 @@
-  angular.module("UclchampionsManagerApp", ["ngRoute"].config(function ($routeProvider){
+  angular.module("UclchampionsManagerApp", ["ngRoute"]).config(function ($routeProvider){
     
       $routeProvider
       .when("/",{
@@ -15,7 +15,7 @@
     
       console.log("App inizialized and configured");
 
-  }));
+  });
     /*Si no ponemos el array vacio [] no estamos creando un módulo, si no 
     que estamo sdiciendole a angular que nos de el modulo con ese nombre*/
     

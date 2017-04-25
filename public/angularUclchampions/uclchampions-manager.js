@@ -1,8 +1,13 @@
   angular.module("UclchampionsManagerApp", ["ngRoute"].config(function ($routeProvider){
     
-      $routeProvider.when("/",{
+      $routeProvider
+      .when("/",{
         templateUrl : "list.html" ,
         controller : "Uclchampion-ctrl"
+      })
+      .when("/uclchampion/:year",{
+        templateUrl : "edit.html",
+        controller : "Edit-ctrl"
       });
     
     

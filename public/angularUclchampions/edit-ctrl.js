@@ -1,14 +1,15 @@
-//////////////SE INICIALIZA EL CONTROLADOR ////////////////////////
+  //////////////SE INICIALIZA EL CONTROLADOR ////////////////////////
 
 angular
     .module("UclchampionsManagerApp")
-    .controller("Uclchampion-ctrl", ["$scope", "$http", function ($scope, $http){
+    .controller("Edit-ctrl", ["$scope", "$http", "$routeParams",
+    function ($scope, $http,$routeParams){
     
      $scope.url = "/api/v1/uclchampions";
     
-    console.log("List controller initialized (splited right)");
+    console.log("Edit controller initialized");
     
-    
+/* 
     //CARGAR DATOS
        $scope.loadInitialData= function(){
             $http.get($scope.url+"/loadInitialData?apikey="+$scope.apikey)
@@ -17,18 +18,19 @@ angular
                 refresh();
             })
         }
+*/
    function refresh(){
          $http
-            .get($scope.url+"?apikey="+ $scope.apikey)
+            .get($scope.url+"/"+ $routeParams.year+"?apikey="+ $scope.apikey)
             /*.get("api/v1/lfppichichitrophy")*/
             .then(function (response){
                 $scope.data = JSON.stringify(response.data, null, 2);
-                $scope.uclchampions = response.data;
+                $scope.updateduclchampion = response.data;
             }, function errorCallback(response){
                 console.log("Error callback");
             });
     }
-    
+/*    
     //GET
      $scope.getData = function(){
             $http
@@ -40,9 +42,9 @@ angular
                 });
                 
               } 
-    
+*/
     //PAGINACIÓN
-    
+/*    
     $scope.offset = 0;
      $scope.getPaginacion = function(){
            
@@ -69,18 +71,18 @@ angular
         });
     }
     
-    
+*/  
    
         //MODIFICAR UN CAMPEO
         $scope.editauclchampion = function(){
-            $http.put($scope.url +"/" + $scope.newuclchampions.year +"?apikey=" + $scope.apikey,$scope.newuclchampions)
+            $http.put($scope.url +"/" + $scope.updateduclchampions.year +"?apikey=" + $scope.apikey,$scope.updateduclchampions)
             .then(function(response){
                 console.log("Campeon modificadao correctamente");
                 refresh();
             });
             
         }
-     
+/*    
     //ELIMINAR UN PICHICHI
      $scope.deleteuclchampion = function (year){
         $http
@@ -113,5 +115,5 @@ angular
                 });
         }
         
-           
+ */          
     }]);

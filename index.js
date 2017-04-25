@@ -85,7 +85,7 @@ app.use(BASE_API_PATH + "/tests", express.static(path.join(__dirname , "public/t
 
 
 app.get(BASE_API_PATH+"/pichichi-angular", function(request, response){
-    response.sendfile(publicFolder + "/angularPichichi/index.html");
+    response.sendFile(publicFolder + "/angularPichichi/index.html");
 
 });
 

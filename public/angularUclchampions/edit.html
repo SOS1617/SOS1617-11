@@ -1,0 +1,34 @@
+<h2>Edit champion</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Champion</th>
+            <th>Runnerup</th>
+            <th>Stadium</th>
+            <th>City</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+                
+    <tbody>
+                
+        <tr>
+            <td class="info"><input class="form-control" ng-model="newuclchampions.year" placeholder="Year"></td>
+            <td class="info"><input class="form-control" ng-model="newuclchampions.champion" placeholder="Champion"></td>
+            <td class="info"><input class="form-control" ng-model="newuclchampions.runnerup" placeholder="Runnerup"></td>
+            <td class="info"><input class="form-control" ng-model="newuclchampions.stadium" placeholder="Stadium"></td>
+            <td class="info"><input class="form-control" ng-model="newuclchampions.city" placeholder="City"></td>
+            <td class="info"><button class = "button btn-primary" ng-click="adduclchampion()">Add</button></td>
+        </tr>
+                
+        <tr>
+            <td class="info"><input class="form-control" ng-model="newuclchampions.year"></td>
+            <td class="info"><input class="form-control" ng-model="newuclchampions.champion"></td>
+            <td class="info"><input class="form-control" ng-model="newuclchampions.runnerup" ></td>
+            <td class="info"><input class="form-control" ng-model="newuclchampions.stadium" ></td>
+            <td class="info"><input class="form-control" ng-model="newuclchampions.city"></td>
+            <td class="info" ><button class="btn btn-warning" ng-click="editauclchampion()">EDITAR CHAMPION</button></td>
+        </tr>
+    </tbody>    
+</table>

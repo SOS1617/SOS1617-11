@@ -4,7 +4,7 @@
                 <thead>
                     <tr><h4>APIKEY: adrdavand</h4></tr>
                     <tr>
-                        <th>Introduce APIKEY<input class="form-control" ng-model="apikey" placeholder="adrdavand"></th>
+                        <th>Introduce APIKEY<input class="form-control" ng-model="apikey"></th>
                         <th class="text-center"><button class="btn-primary" ng-click="getData()">GET DATA</button></th>
                         <th class="text-center"><button class="btn-primary" ng-click="loadInitialData()">INICIALIZA</button></th>
                         
@@ -71,12 +71,11 @@
                         <td class="info"><input class="form-control" ng-model="newuclchampions.stadium" ></td>
                         <td class="info"><input class="form-control" ng-model="newuclchampions.city"></td>
                         <td class="info" ><button class="btn btn-warning" ng-click="editauclchampion()">EDITAR CHAMPION</button></td>
-                    </tr> 
-                   
-                    -->
+                    </tr> -->
+                  
                    
                     
-                    <tr ng-repeat="champion in uclchampions"> 
+                    <tr ng-repeat="champion in uclchampions  | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize"> 
                         <td><a href="#!/{{champion.year}}">{{champion.year}}</a></td>
                         <td>{{champion.champion}}</td>
                         <td>{{champion.runnerup}}</td>
@@ -84,6 +83,20 @@
                         <td>{{champion.city}}</td>
                         <td><button class = "button btn-danger" ng-click="deleteuclchampion(champion.year)">Delete</button></td>
                     </tr>
+                    <!--<button ng-click="setPage(1)">First</button> -->
+                    <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous
+                    </button>
+                    {{currentPage+1}}/{{numberOfPages()}}
+                    <button ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
+                    Next
+                    </button>
+                    <!-- <button ng-click="setPage(numberOfPages())">Last -->
+                    </button>
+                    
                 </tbody>
             </table>
         </div>
+        
+   
+   
+  

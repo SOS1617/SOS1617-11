@@ -6,6 +6,7 @@ angular
     function ($scope, $http,$routeParams,$location){
     
      $scope.url = "/api/v1/uclchampions";
+     
     
     console.log("Edit controller initialized");
 
@@ -17,16 +18,16 @@ angular
             });
     }
     refresh();
-    
-
    
         //MODIFICAR UN CAMPEO
-        $scope.editUclchampion = function(){
+        $scope.editUclchampion = function(data){
+            delete data._id;
             $http
             .put($scope.url +"/" + $scope.updatedUclchampion.year +"?apikey=adrdavand",$scope.updatedUclchampion)
             .then(function(response){
                 console.log("Campeon modificadao correctamente");
                 $location.path("/");
+                
             });
             
         } 

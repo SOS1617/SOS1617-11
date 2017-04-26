@@ -1,6 +1,6 @@
 //////////////SE INICIALIZA EL CONTROLADOR ////////////////////////
 
-angular
+var app = angular
     .module("UclchampionsManagerApp")
     .controller("Uclchampion-ctrl", ["$scope", "$http", function ($scope, $http){
     
@@ -19,6 +19,7 @@ angular
             })
         }
    function refresh(){
+       
          $http
             .get($scope.url+"?apikey="+ $scope.apikey)
             /*.get("api/v1/lfppichichitrophy")*/
@@ -28,6 +29,7 @@ angular
             }, function errorCallback(response){
                 console.log("Error callback");
             });
+      
     }
     refresh();
     
@@ -83,8 +85,8 @@ angular
             });
             
         }
-    */
-     
+    
+     */
     //ELIMINAR UN PICHICHI
      $scope.deleteuclchampion = function (year){
         $http
@@ -116,7 +118,33 @@ angular
                     $scope.uclchampions = response.data; 
                 });
         }
-    
         
-           
-    }]);
+        
+        // -----------------------------------------
+    $scope.currentPage = 0;
+    $scope.pageSize = 3;
+    $scope.data = [];
+    $scope.q = '';
+    
+    $scope.getData1 = function () {
+      return $filter('filter')($scope.data, $scope.q)
+    }
+    
+    $scope.numberOfPages=function(){
+        return Math.ceil($scope.getData1().length/$scope.pageSize);                
+    }
+    $scope.setPage = function(page){
+        if(page>0 && page<$scope.numberOfPages()){
+            $scope.currentPage=page;
+        }
+    }
+    
+    
+}]);
+    
+    app.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+    });

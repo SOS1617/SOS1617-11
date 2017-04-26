@@ -6,7 +6,7 @@
       templateUrl : "inicio.html",
       controller : "Pichichi-ctrl"
     })
-    .when("/update", {
+    .when("/update/:season", {
       templateUrl : "edit.html",
       controller : "EditCtrl"
     });

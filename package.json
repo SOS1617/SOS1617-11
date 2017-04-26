@@ -27,7 +27,7 @@
     "mongodb": "^2.2.25",
     "nedb": "^1.8.0",
     "path": "^0.12.7",
-    "protractor": "^5.1.1"
+    "protractor": "^5.1.1",
     "phantomjs": "^2.1.7"
     
   },

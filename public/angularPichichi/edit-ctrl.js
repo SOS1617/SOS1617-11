@@ -18,16 +18,28 @@ angular
             });
     }
     
+     //GET
+     $scope.getData = function(){
+            $http
+            .get($scope.url+"?apikey="+ $scope.apikey)
+            .then(function(response){
+               $scope.lfppichichitrophy= response.data;
+                console.log( "Showing data " );
+
+                });
+                
+              } 
+    
+    
     
      //MODIFICAR UN PICHICHI
-        $scope.editaPichichi = function(){
-            $http.put($scope.url +"/" + $scope.updatePichichi.season +"?apikey=" + $scope.apikey,$scope.updatePichichi)
+    $scope.editaPichichi = function(){
+            $http.put($scope.url +"/" + $scope.newlfppichichitrophy.season +"?apikey=" + $scope.apikey,$scope.newlfppichichitrophy)
             .then(function(response){
                 console.log("Pichichi modificadao correctamente");
                 refresh();
             });
-            
-        }
+    };
     
     
     }]);

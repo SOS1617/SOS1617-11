@@ -5,6 +5,7 @@ angular
     .controller("Uclchampion-ctrl", ["$scope", "$http", function ($scope, $http){
     
      $scope.url = "/api/v1/uclchampions";
+     $scope.apikey = "adrdavand";
     
     console.log("List controller initialized (splited right)");
     
@@ -28,6 +29,7 @@ angular
                 console.log("Error callback");
             });
     }
+    refresh();
     
     //GET
      $scope.getData = function(){
@@ -36,8 +38,9 @@ angular
             .then(function(response){
                $scope.uclchampions= response.data;
                 console.log( "Showing data " );
-
+            
                 });
+                refresh();
                 
               } 
     
@@ -70,7 +73,7 @@ angular
     }
     
     
-   
+   /*
         //MODIFICAR UN CAMPEO
         $scope.editauclchampion = function(){
             $http.put($scope.url +"/" + $scope.newuclchampions.year +"?apikey=" + $scope.apikey,$scope.newuclchampions)
@@ -80,6 +83,7 @@ angular
             });
             
         }
+    */
      
     //ELIMINAR UN PICHICHI
      $scope.deleteuclchampion = function (year){
@@ -112,6 +116,7 @@ angular
                     $scope.uclchampions = response.data; 
                 });
         }
+    
         
            
     }]);

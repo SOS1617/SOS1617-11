@@ -4,7 +4,7 @@
                 <thead>
                     <tr><h4>APIKEY: adrdavand</h4></tr>
                     <tr>
-                        <th>Introduce APIKEY<input class="form-control" ng-model="apikey"></th>
+                        <th>Introduce APIKEY<input class="form-control" ng-model="apikey" placeholder="adrdavand"></th>
                         <th class="text-center"><button class="btn-primary" ng-click="getData()">GET DATA</button></th>
                         <th class="text-center"><button class="btn-primary" ng-click="loadInitialData()">INICIALIZA</button></th>
                         
@@ -63,7 +63,7 @@
                         <td class="info"><button class = "button btn-primary" ng-click="adduclchampion()">Add</button></td>
 
                     </tr>
-                
+                <!--
                     <tr>
                         <td class="info"><input class="form-control" ng-model="newuclchampions.year"></td>
                         <td class="info"><input class="form-control" ng-model="newuclchampions.champion"></td>
@@ -71,13 +71,13 @@
                         <td class="info"><input class="form-control" ng-model="newuclchampions.stadium" ></td>
                         <td class="info"><input class="form-control" ng-model="newuclchampions.city"></td>
                         <td class="info" ><button class="btn btn-warning" ng-click="editauclchampion()">EDITAR CHAMPION</button></td>
-                    </tr>
+                    </tr> 
                    
-                    
+                    -->
                    
                     
                     <tr ng-repeat="champion in uclchampions"> 
-                        <td>{{uclchampion.year}}</a></td>
+                        <td><a href="#!/{{champion.year}}">{{champion.year}}</a></td>
                         <td>{{champion.champion}}</td>
                         <td>{{champion.runnerup}}</td>
                         <td>{{champion.stadium}}</td>

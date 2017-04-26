@@ -5,7 +5,7 @@
         templateUrl : "list.html" ,
         controller : "Uclchampion-ctrl"
       })
-      .when("/uclchampion/:year",{
+      .when("/:year",{
         templateUrl : "edit.html",
         controller : "Edit-ctrl"
       });

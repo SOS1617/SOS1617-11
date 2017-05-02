@@ -1,6 +1,6 @@
 //////////////SE INICIALIZA EL CONTROLADOR ////////////////////////
 
-var app = angular
+angular
     .module("UclchampionsManagerApp")
     .controller("Uclchampion-ctrl", ["$scope", "$http", function ($scope, $http){
     
@@ -121,7 +121,7 @@ var app = angular
         
         
         // -----------------------------------------
-    $scope.currentPage = 0;
+   /* $scope.currentPage = 0;
     $scope.pageSize = 3;
     $scope.data = [];
     $scope.q = '';
@@ -139,12 +139,13 @@ var app = angular
         }
     }
     
-    
+    */
 }]);
     
-    app.filter('startFrom', function() {
+    /*app.filter('startFrom', function() {
     return function(input, start) {
         start = +start; //parse to int
         return input.slice(start);
     }
     });
+    */

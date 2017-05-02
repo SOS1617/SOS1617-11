@@ -4,8 +4,8 @@
             <tr><h4>APIKEY: adrdavand</h4></tr>
             <tr>
                 <th>Introduce APIKEY<input class="form-control" ng-model="apikey"></th>
-                <th class="text-center"><button class="btn-primary" ng-click="getData()">GET DATA</button></th>
-                <th class="text-center"><button class="btn-primary" ng-click="loadInitialData()">INICIALIZA</button></th>
+                <th class="text-center"><button class="btn btn-primary" ng-click="getData()">GET DATA</button></th>
+                <th class="text-center"><button class="btn btn-primary" ng-click="loadInitialData()">INICIALIZA</button></th>
                 
             </tr>
                 
@@ -57,7 +57,7 @@
                         <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.name" placeholder="Name"></td>
                         <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.team" placeholder="Team"></td>
                         <td class="info"><input class="form-control" ng-model="newlfppichichitrophy.goal" placeholder="Goal"></td>
-                        <td class="info"><button class = "button btn-primary" ng-click="addPichichi()">Add</button></td>
+                        <td class="info"><button class = "btn btn-succes" ng-click="addPichichi()">Add</button></td>
                     </tr>
                 
                     <!-- <tr>
@@ -71,7 +71,7 @@
                     
                     <tr ng-repeat="pichichi in lfppichichitrophy"> 
                         <td>{{pichichi.nationality}}</td>
-                        <td><a href = "#!/update/:{{lfppichichitrophy.season}}">{{pichichi.season}}</a></td>
+                        <td><a href = "#!/update/{{pichichi.season}}">{{pichichi.season}}</a></td>
                         <td>{{pichichi.name}}</td>
                         <td>{{pichichi.team}}</td>
                         <td>{{pichichi.goal}}</td>

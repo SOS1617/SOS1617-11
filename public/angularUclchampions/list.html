@@ -75,23 +75,23 @@
                   
                    
                     
-                    <tr ng-repeat="champion in uclchampions  | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize"> 
+                    <tr ng-repeat="champion in uclchampions"> 
                         <td><a href="#!/{{champion.year}}">{{champion.year}}</a></td>
                         <td>{{champion.champion}}</td>
                         <td>{{champion.runnerup}}</td>
                         <td>{{champion.stadium}}</td>
                         <td>{{champion.city}}</td>
                         <td><button class = "button btn-danger" ng-click="deleteuclchampion(champion.year)">Delete</button></td>
-                    </tr>
+                   </tr>
                     <!--<button ng-click="setPage(1)">First</button> -->
-                    <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous
+                    <!-- <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous
                     </button>
                     {{currentPage+1}}/{{numberOfPages()}}
                     <button ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
                     Next
                     </button>
                     <!-- <button ng-click="setPage(numberOfPages())">Last -->
-                    </button>
+                    <!-- </button> -->
                     
                 </tbody>
             </table>

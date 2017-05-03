@@ -84,4 +84,7 @@ app.use(BASE_API_PATH + "/tests", express.static(path.join(__dirname , "public/t
 ////////////////////////////URL HTMLS///////////////////////
 
 
+app.get(BASE_API_PATH+"/uclchampions-angular", function(request, response){
+    response.sendfile(publicFolder + "/angularUclchampions/list.html");
 
+});

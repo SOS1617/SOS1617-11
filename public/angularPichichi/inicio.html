@@ -14,7 +14,7 @@
                 <th class="success">Introduce OFFSET<input class="form-control" ng-model="offset" placeholder="Offset"></th>
                 <th class="success"><button class="btn btn-success" ng-click="getPaginacion()">Get</button></th>
             </tr>
-    
+            
         </thead> 
         
         
@@ -76,5 +76,15 @@
                         <td>{{pichichi.goal}}</td>
                         <td><button class = "button btn-danger" ng-click="deletePichichi(pichichi.season)">Delete</button></td>
                     </tr>
+            </table>        
+                <tr>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(0)">&laquo; Primera pagina</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(0)">1</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(3)">2</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(6)">3</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(9)">4</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(12)">5</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(12)">Última página &raquo;</button></th>
+                </tr>
                 </tbody>
-            </table>
+            

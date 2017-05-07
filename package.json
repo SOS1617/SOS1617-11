@@ -29,7 +29,9 @@
     "path": "^0.12.7",
     "protractor": "^5.1.1",
     "phantomjs": "^2.1.7"
-    
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "directories": {
+    "test": "test"
+  }
 }

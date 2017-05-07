@@ -54,6 +54,24 @@ angular
                 });
             
         } ;
+        
+        
+        
+        
+        //PAGINACIÓN2
+    
+     $scope.getPaginacion2 = function(offset){
+            $http
+                .get($scope.url+"?apikey="+ $scope.apikey +"&limit=3"  +"&offset="+offset)
+                .then(function(response){
+                    $scope.data = JSON.stringify(response.data, null, 2); 
+                    $scope.lfppichichitrophy = response.data;
+                    console.log( $scope.data );
+                });
+            
+        } ;
+        
+        
     
     
     //AÑADIR UN NUEVO PICHICHI
@@ -112,6 +130,29 @@ angular
                     $scope.lfppichichitrophy = response.data; 
                 });
         }
+        
+        
+        
+        //PAGINACIÓN
+         /* $scope.currentPage = 0;
+    $scope.pageSize = 3;
+    $scope.data = [];
+    $scope.q = '';
+    
+    $scope.getData1 = function () {
+      return $filter('filter')($scope.data, $scope.q)
+    }
+    
+    $scope.numberOfPages=function(){
+        return Math.ceil($scope.getData1().length/$scope.pageSize);                
+    }
+    $scope.setPage = function(page){
+        if(page>0 && page<$scope.numberOfPages()){
+            $scope.currentPage=page;
+        }
+    }
+    
+    */
         
            
     }]);

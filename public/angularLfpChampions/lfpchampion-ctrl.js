@@ -58,8 +58,8 @@ angular
     
     
     //AÑADIR UN NUEVO LFPCHAMPIONS
-    $scope.addLfpChampions = function (){
-        var datainput = $scope.newlfpchampions;
+    $scope.addLfpChampion = function (){
+        var datainput = $scope.newLfpChampion;
         console.log(datainput);
         $http
             .post($scope.url+"?apikey="+ $scope.apikey,datainput)
@@ -71,9 +71,9 @@ angular
     
     
    
-        //MODIFICAR UN LFPCHAMPIONS
+        //MODIFICAR UN LFPCHAMPION
         $scope.editaLfpChampion = function(){
-            $http.put($scope.url +"/" + $scope.newlfpchampions.season +"?apikey=" + $scope.apikey,$scope.newlfpchampions)
+            $http.put($scope.url +"/" + $scope.newLfpChampion.season +"?apikey=" + $scope.apikey,$scope.newLfpChampion)
             .then(function(response){
                 console.log("LfpChampion modificadao correctamente");
                 refresh();
@@ -81,7 +81,7 @@ angular
             
         }
      
-    //ELIMINAR UN LFPCHAMPIONS
+    //ELIMINAR UN LFPCHAMPION
      $scope.deleteLfpChampion = function (season){
         $http
             .delete($scope.url+"/" + season +"/?apikey="+ $scope.apikey)
@@ -105,9 +105,9 @@ angular
         //BÚSQUEDA
         $scope.search = function(){
             $http
-                .get($scope.url+"?apikey="+$scope.apikey+"&season="+$scope.newlfpchampions.season)
+                .get($scope.url+"?apikey="+$scope.apikey+"&season="+$scope.newLfpChampion.season)
                 .then(function(response){
-                    console.log("Muestra el lfpchampions de la temporada: " + $scope.newlfpchampions.season);
+                    console.log("Muestra el lfpchampions de la temporada: " + $scope.newLfpChampion.season);
                     $scope.data = JSON.stringify(response.data, null, 2);
                     $scope.lfpchampions = response.data; 
                 });

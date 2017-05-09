@@ -11,17 +11,17 @@ angular
          $http
             .get($scope.url+ "/"+ $routeParams.season + "?apikey=adrdavand")
             .then(function (response){
-                $scope.updatedLfpChampions = response.data;
+                $scope.updatedLfpChampion = response.data;
             });
     }
     
-     //MODIFICAR UN LFPCHAMPIONS
-    $scope.editaLfpChampions = function(data){
+     //MODIFICAR UN LFPCHAMPION
+    $scope.editaLfpChampion = function(data){
         delete data._id;
             $http
-                .put($scope.url +"/" + $routeParams.season +"?apikey=adrdavand" ,$scope.updatedLfpChampions)
+                .put($scope.url +"/" + $routeParams.season +"?apikey=adrdavand" ,$scope.updatedLfpChampion)
                 .then(function(response){
-                    console.log("LfpChampions modificadao correctamente");
+                    console.log("LfpChampion modificadao correctamente");
                     $location.path("/");
             });
     };

@@ -22,7 +22,7 @@
             <thead>
                 <tr><h4>Búsqueda por temporada</h4></tr>
                 <tr>
-                    <th class="success"><input class="form-control" ng-model="newlfpchampions.season"></th>
+                    <th class="success"><input class="form-control" ng-model="newLfpChampion.season"></th>
                     <th class="success"><button class="btn btn-succes" ng-click="search()">BUSCAR</button></th>
                 
                 </tr>
@@ -49,11 +49,11 @@
                 
                 <tbody>
                     <tr>
-                        <td class="info"><input class="form-control" ng-model="newlfpchampions.champion" placeholder="Champion"></td>
-                        <td class="info"><input class="form-control" ng-model="newlfpchampions.championcity" placeholder="Champion city"></td>
-                        <td class="info"><input class="form-control" ng-model="newlfpchampions.season" placeholder="Season"></td>
-                        <td class="info"><input class="form-control" ng-model="newlfpchampions.runnerup" placeholder="Runner-up"></td>
-                        <td class="info"><button class = "btn btn-succes" ng-click="addLfpChampions()">Add</button></td>
+                        <td class="info"><input class="form-control" ng-model="newLfpChampion.champion" placeholder="Champion"></td>
+                        <td class="info"><input class="form-control" ng-model="newLfpChampion.championcity" placeholder="Champion city"></td>
+                        <td class="info"><input class="form-control" ng-model="newLfpChampion.season" placeholder="Season"></td>
+                        <td class="info"><input class="form-control" ng-model="newLfpChampion.runnerup" placeholder="Runner-up"></td>
+                        <td class="info"><button class = "btn btn-succes" ng-click="addLfpChampion()">Add</button></td>
                     </tr>
                 
                  
@@ -62,7 +62,7 @@
                         <td>{{lfpchampions.championcity}}</td>
                         <td><a href = "#!/update/{{lfpchampions.season}}">{{lfpchampions.season}}</a></td>
                         <td>{{lfpchampions.runnerup}}</td>
-                        <td><button class = "button btn-danger" ng-click="deleteLfpChampions(lfpchampions.season)">Delete</button></td>
+                        <td><button class = "button btn-danger" ng-click="deleteLfpChampion(lfpchampions.season)">Delete</button></td>
                     </tr>
             </table>        
                 <tr>

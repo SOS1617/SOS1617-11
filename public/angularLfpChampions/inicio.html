@@ -1,0 +1,78 @@
+<h2>LfpChampions</h2>
+    <table class="table">
+        <thead>
+            <tr><h4>APIKEY: adrdavand</h4></tr>
+            <tr>
+                <th>Introduce APIKEY<input class="form-control" ng-model="apikey"></th>
+                <th class="text-center"><button class="btn btn-primary" ng-click="getData()">GET DATA</button></th>
+                <th class="text-center"><button class="btn btn-primary" ng-click="loadInitialData()">INICIALIZA</button></th>
+                
+            </tr>
+                
+            <tr>
+                <th class="success">Introduce LIMIT<input class="form-control" ng-model="limit" placeholder="Limit"></th>
+                <th class="success">Introduce OFFSET<input class="form-control" ng-model="offset" placeholder="Offset"></th>
+                <th class="success"><button class="btn btn-success" ng-click="getPaginacion()">Get</button></th>
+            </tr>
+            
+        </thead> 
+        
+        
+        <table class="table">
+            <thead>
+                <tr><h4>Búsqueda por temporada</h4></tr>
+                <tr>
+                    <th class="success"><input class="form-control" ng-model="newlfpchampions.season"></th>
+                    <th class="success"><button class="btn btn-succes" ng-click="search()">BUSCAR</button></th>
+                
+                </tr>
+            </thead> 
+        </table>
+                    
+        <table class="table" >
+            <thead>
+                <tr><h4>Vaciar la base de datos:</h4></tr>
+                <button class="btn-danger" ng-click="deleteLista()">BORRAR TODO</button>
+            </thead>
+        </table>
+                    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Champion</th>
+                    <th>Champion city</th>
+                    <th>Season</th>
+                    <th>Runner-up</th>
+                </tr>
+            </thead>
+                
+                
+                <tbody>
+                    <tr>
+                        <td class="info"><input class="form-control" ng-model="newlfpchampions.champion" placeholder="Champion"></td>
+                        <td class="info"><input class="form-control" ng-model="newlfpchampions.championcity" placeholder="Champion city"></td>
+                        <td class="info"><input class="form-control" ng-model="newlfpchampions.season" placeholder="Season"></td>
+                        <td class="info"><input class="form-control" ng-model="newlfpchampions.runnerup" placeholder="Runner-up"></td>
+                        <td class="info"><button class = "btn btn-succes" ng-click="addLfpChampions()">Add</button></td>
+                    </tr>
+                
+                 
+                    <tr ng-repeat="lfpchampion in lfpchampions"> 
+                        <td>{{lfpchampions.champion}}</td>
+                        <td>{{lfpchampions.championcity}}</td>
+                        <td><a href = "#!/update/{{lfpchampions.season}}">{{lfpchampions.season}}</a></td>
+                        <td>{{lfpchampions.runnerup}}</td>
+                        <td><button class = "button btn-danger" ng-click="deleteLfpChampions(lfpchampions.season)">Delete</button></td>
+                    </tr>
+            </table>        
+                <tr>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(0)">&laquo; Primera pagina</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(0)">1</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(3)">2</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(6)">3</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(9)">4</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(12)">5</button></th>
+                        <th><button class="btn btn-success" ng-click="getPaginacion2(12)">Última página &raquo;</button></th>
+                </tr>
+                </tbody>
+            

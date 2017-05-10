@@ -8,19 +8,19 @@ angular
     
     console.log("Controller initialized (splited right)");
     
-    
-    //CARGAR DATOS
-       $scope.loadInitialData= function(){
-            $http.get($scope.url+"/loadInitialData?apikey="+$scope.apikey)
-            .then(function(){
-                console.log("Load initial data: OK");
-                refresh();
-            })
+    function checkApiKey(){
+             if(!$scope.apikey){
+             $.notify("Error! API Key was empty!", "warn");
+             }else{
+                 if($scope.apikey != "GVAODcH3"){
+                    $.notify("Error! API Key was incorrect!", "error");
+                }
+             }
         }
-   function refresh(){
+        
+    function refresh(){
          $http
             .get($scope.url+"?apikey="+ $scope.apikey)
-            /*.get("api/v1/lfpchampions")*/
             .then(function (response){
                 $scope.data = JSON.stringify(response.data, null, 2);
                 $scope.lfpchampions = response.data;
@@ -28,6 +28,19 @@ angular
                 console.log("Error callback");
             });
     }
+    
+    
+    //CARGAR DATOS
+       $scope.loadInitialData= function(){
+           checkApiKey();
+            $http.get($scope.url+"/loadInitialData?apikey="+$scope.apikey)
+            .then(function(){
+                console.log("Load initial data: OK");
+                $.notify("Load Initial data Complete!", "success");
+                refresh();
+            })
+        }
+   
     
     //GET
      $scope.getData = function(){
@@ -69,17 +82,6 @@ angular
         });
     }
     
-    
-   
-        //MODIFICAR UN LFPCHAMPION
-        $scope.editaLfpChampion = function(){
-            $http.put($scope.url +"/" + $scope.newLfpChampion.season +"?apikey=" + $scope.apikey,$scope.newLfpChampion)
-            .then(function(response){
-                console.log("LfpChampion modificadao correctamente");
-                refresh();
-            });
-            
-        }
      
     //ELIMINAR UN LFPCHAMPION
      $scope.deleteLfpChampion = function (season){

@@ -1,4 +1,4 @@
-<h2>LfpChampions</h2>
+<h2>LfpChampion</h2>
     <table class="table">
         <thead>
             <tr><h4>APIKEY: adrdavand</h4></tr>
@@ -40,7 +40,7 @@
             <thead>
                 <tr>
                     <th>Champion</th>
-                    <th>Champion city</th>
+                    <th>Champion City</th>
                     <th>Season</th>
                     <th>Runner-up</th>
                 </tr>
@@ -50,19 +50,27 @@
                 <tbody>
                     <tr>
                         <td class="info"><input class="form-control" ng-model="newLfpChampion.champion" placeholder="Champion"></td>
-                        <td class="info"><input class="form-control" ng-model="newLfpChampion.championcity" placeholder="Champion city"></td>
+                        <td class="info"><input class="form-control" ng-model="newLfpChampion.championcity" placeholder="Champion City"></td>
                         <td class="info"><input class="form-control" ng-model="newLfpChampion.season" placeholder="Season"></td>
                         <td class="info"><input class="form-control" ng-model="newLfpChampion.runnerup" placeholder="Runner-up"></td>
                         <td class="info"><button class = "btn btn-succes" ng-click="addLfpChampion()">Add</button></td>
                     </tr>
                 
-                 
+                    <!-- <tr>
+                        <td class="info"><input class="form-control" ng-model="newLfpChampion.nationality"></td>
+                        <td class="info"><input class="form-control" ng-model="newLfpChampion.season"></td>
+                        <td class="info"><input class="form-control" ng-model="newLfpChampion.name" ></td>
+                        <td class="info"><input class="form-control" ng-model="newLfpChampion.team" ></td>
+                        <td class="info"><input class="form-control" ng-model="newLfpChampion.goal"></td>
+                        <td class="info" ><button class="btn btn-warning" ng-click="editaLfpChampion()">EDITAR LFPCHAMPION</button></td>
+                    </tr> -->
+                    
                     <tr ng-repeat="lfpchampion in lfpchampions"> 
-                        <td>{{lfpchampions.champion}}</td>
-                        <td>{{lfpchampions.championcity}}</td>
-                        <td><a href = "#!/update/{{lfpchampions.season}}">{{lfpchampions.season}}</a></td>
-                        <td>{{lfpchampions.runnerup}}</td>
-                        <td><button class = "button btn-danger" ng-click="deleteLfpChampion(lfpchampions.season)">Delete</button></td>
+                        <td>{{lfpchampion.champion}}</td>
+                        <td>{{lfpchampion.championcity}}</td>
+                        <td><a href = "#!/update/{{lfpchampion.season}}">{{lfpchampion.season}}</a></td>
+                        <td>{{lfpchampion.runnerup}}</td>
+                        <td><button class = "button btn-danger" ng-click="deleteLfpChampion(lfpchampion.season)">Delete</button></td>
                     </tr>
             </table>        
                 <tr>

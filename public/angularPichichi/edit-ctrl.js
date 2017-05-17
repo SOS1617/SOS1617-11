@@ -1,5 +1,5 @@
 angular
-    .module("PichichiManagerApp")
+    .module("sos1617-11-app")
     .controller("EditCtrl", ["$scope", "$http", "$routeParams", "$location", 
     function ($scope, $http, $routeParams, $location){
     
@@ -11,8 +11,13 @@ angular
          $http
             .get($scope.url+ "/"+ $routeParams.season + "?apikey=adrdavand")
             .then(function (response){
-                $scope.updatedPichichi = response.data;
-            });
+                $scope.updateTic = response.data;
+
+                }, function errorCallback(response) {
+                    console.log("Entra1");
+                    $scope.updateTic = [];
+
+                });
     }
     
      //MODIFICAR UN PICHICHI
@@ -22,7 +27,14 @@ angular
                 .put($scope.url +"/" + $routeParams.season +"?apikey=adrdavand" ,$scope.updatedPichichi)
                 .then(function(response){
                     console.log("Pichichi modificadao correctamente");
-                    $location.path("/");
+                     switch (response.status) {
+                    case 400:
+                        alert("Please fill all the fields");
+                        break;
+                    default:
+                        alert("OK");
+                        break;
+}
             });
     };
     refresh();

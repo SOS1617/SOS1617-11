@@ -16,13 +16,7 @@ angular
         //Pichichi
         
         $scope.apikey = "adrdavand";
-        $scope.dataEconomic = {};
-        $scope.dataBirth = {};
-        var dataCacheEconomic = {};
-        var dataCacheBirth = {};
-        $scope.categorias = [];
-        $scope.categorias1 = [];
-        
+      
         //G11
         $scope.year = [];
         $scope.birthRate = [];
@@ -34,17 +28,7 @@ angular
         
     
             
-       /*     //Get Pichichi
-            
-            $http.get("/api/v1/birthRateStats"+ "?" + "apikey=" + $scope.apikey).then(function(response){
-                
-                dataCacheBirth = response.data;
-                $scope.dataBirth =dataCacheBirth;
-                
-                for(var i=0; i<response.data.length; i++){
-                $scope.birthRate.push(Number($scope.dataBirth[i].birthRate));
-                }*/
-        
+       
             
             //Get LfpChampions
             

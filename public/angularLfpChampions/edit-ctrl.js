@@ -1,5 +1,5 @@
 angular
-    .module("LfpChampionsManagerApp")
+    .module("sos1617-11-app")
     .controller("EditCtrl", ["$scope", "$http", "$routeParams", "$location", 
     function ($scope, $http, $routeParams, $location){
     
